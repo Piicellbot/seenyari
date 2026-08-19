@@ -1,0 +1,3400 @@
+<!DOCTYPE html>
+<html lang="fa" dir="ltr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>سین‌یار | پنل کاربری</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&family=Poppins:wght@700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ 
+  background:#000000; 
+  transition:background-color .45s ease; 
+  font-family:'Rubik', 'Vazirmatn', sans-serif;
+  display:flex;
+  justify-content:center;
+  color:#ffffff;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
+  min-height:100vh;
+  width:100%;
+  overflow-x:hidden;
+}
+body{
+  min-height:100vh;
+  padding:0;
+  margin:0;
+  background:#000000;
+  overflow-x:hidden;
+}
+ 
+/* ===== THEME VARIABLES ===== */
+:root{
+--yellow-1:#ffe066;
+--yellow-2:#f5c400;
+--purple-1:#8a4fc9;
+--purple-2:#3a1652;
+--blue-1:#4f86d9;
+--blue-2:#0c1c44;
+--green:#34d77b;
+--red:#ff6b6b;
+--orange:#ffa94d;
+--bg:#000000;
+--page-text:#ffffff;
+--card-white:#ffffff;
+--card-white-text:#0a0a0a;
+--card-surface:#0e0e0e;
+--card-surface-border:#272727;
+--text-muted:#9a9a9a;
+--text-soft:#bdbdbd;
+--pill-bg:#e5e5e5;
+--pill-text:#0a0a0a;
+--circle-bg:#dfdfdf;
+--dot-color:#e7e7e7;
+--divider:#e6e6e6;
+--header-icon:#ffffff;
+--accent-color: rgba(150, 150, 255, 0.35);
+--accent-glow: rgba(255, 255, 255, 0.35);
+--nav-bg-top: rgba(8, 8, 16, 0.98);
+--nav-bg-bottom: #030303;
+--nav-border-mid: rgba(255,255,255,0.45);
+--nav-border-edge: rgba(255,255,255,0.04);
+--nav-inactive: #5a5a5a;
+--nav-active: #ffffff;
+--nav-active-shadow: rgba(255, 255, 255, 0.25);
+--nav-active-line: #ffffff;
+--nav-box-bg: rgba(255, 255, 255, 0.055);
+--nav-box-border: rgba(255, 255, 255, 0.06);
+--nav-outer-shadow: 0 -4px 30px rgba(0,0,0,0.92), 0 -1px 0 rgba(255,255,255,0.04);
+--nav-pulse-opacity: 0.5;
+--sk-bg: #000000;
+--sk-base: #181818;
+--sk-shine: #2c2c2c;
+--sk-card-bg: #0e0e0e;
+--sk-nav-bg: #080810;
+}
+ 
+/* ===== LAYOUT ===== */
+.screen{
+width:100%;
+max-width:412px;
+padding:22px 18px 136px;
+position:relative;
+margin:0 auto;
+}
+ 
+/* ===== TOAST ===== */
+.toast{
+position:fixed;
+top:14px;
+left:50%;
+transform:translate(-50%,-130%);
+width:calc(100% - 36px);
+max-width:394px;
+background:#1d1d1d;
+color:#fff;
+border:1px solid #313131;
+border-radius:16px;
+padding:12px 14px;
+display:flex;
+align-items:center;
+gap:10px;
+direction:rtl;
+font-size:13px;
+font-weight:600;
+z-index:50;
+opacity:0;
+box-shadow:0 10px 30px rgba(0,0,0,.45);
+transition:transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;
+}
+.toast.show{
+transform:translate(-50%,0);
+opacity:1;
+}
+.toast .check{
+width:22px;
+height:22px;
+border-radius:50%;
+background:linear-gradient(135deg,#3fe08a,var(--green));
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+box-shadow:0 0 12px rgba(52,215,123,.5);
+}
+.toast .check svg{ width:12px; height:12px; color:#06210f; }
+ 
+/* ===== HEADER ===== */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:20px;
+}
+.header-icons{
+display:flex;
+align-items:center;
+gap:16px;
+padding-top:4px;
+}
+.icon-btn{
+width:24px;
+height:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--header-icon);
+cursor:pointer;
+transition:color .45s ease, transform .2s ease;
+-webkit-tap-highlight-color:transparent;
+}
+.icon-btn:active{ transform:scale(.85); }
+.icon-btn svg{ width:100%; height:100%; display:block; }
+.theme-toggle{ position:relative; }
+.theme-toggle .ico{
+position:absolute; inset:0;
+transition:opacity .45s ease, transform .45s cubic-bezier(.34,1.56,.64,1);
+}
+.theme-toggle .ico-moon{ opacity:1; transform:rotate(0) scale(1); }
+.theme-toggle .ico-sun{ opacity:0; transform:rotate(-90deg) scale(.4); }
+html[data-theme="light"] .theme-toggle .ico-moon{ opacity:0; transform:rotate(90deg) scale(.4); }
+html[data-theme="light"] .theme-toggle .ico-sun{ opacity:1; transform:rotate(0) scale(1); }
+ 
+.refresh-btn.spin{ animation:spin720 .7s cubic-bezier(.5,0,.3,1); }
+@keyframes spin720{ to{ transform:rotate(360deg); } }
+.refreshable{ transition:opacity .25s ease; }
+.refreshable.is-refreshing{ opacity:.35; }
+ 
+.header-title{
+text-align:right;
+direction:rtl;
+}
+.header-title h1{
+font-size:23px;
+font-weight:800;
+line-height:1.25;
+}
+.header-title p{
+font-size:12px;
+color:var(--text-soft);
+font-weight:500;
+margin-top:1px;
+transition:color .45s ease;
+}
+ 
+/* ===== WALLET CARD ===== */
+.wallet-card{
+background-color:var(--card-white);
+background-image:radial-gradient(circle, var(--dot-color) 1px, transparent 1px);
+background-size:14px 14px;
+border-radius:24px;
+padding:20px 18px 16px;
+color:var(--card-white-text);
+margin-bottom:14px;
+transition:background-color .45s ease, box-shadow .4s ease, transform .3s ease;
+position:relative;
+overflow:hidden;
+box-shadow: 
+  0 8px 32px rgba(0,0,0,0.08),
+  0 2px 8px rgba(0,0,0,0.04),
+  inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.wallet-card::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:60%;
+background:linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+pointer-events:none;
+border-radius:24px 24px 0 0;
+}
+html[data-theme="dark"] .wallet-card{
+box-shadow: 
+  0 8px 32px rgba(0,0,0,0.45),
+  0 2px 8px rgba(0,0,0,0.3),
+  inset 0 1px 0 rgba(255,255,255,0.04);
+}
+html[data-theme="light"] .wallet-card{
+box-shadow: 
+  0 8px 32px rgba(0,0,0,0.06),
+  0 2px 8px rgba(0,0,0,0.03),
+  inset 0 1px 0 rgba(255,255,255,0.6);
+}
+ 
+.wallet-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+.avatar-slot{
+width:46px;
+height:46px;
+border-radius:13px;
+background:#eef0ef;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+overflow:hidden;
+}
+.avatar-slot svg{ width:24px; height:24px; color:#b8bab9; }
+ 
+.wallet-name{
+flex:1;
+text-align:center;
+direction:ltr;
+font-family:'Rubik', sans-serif;
+font-style:normal;
+font-weight:800;
+font-size:18px;
+letter-spacing:0;
+padding:0 8px;
+color:var(--card-white-text);
+}
+.wallet-arrow{
+width:46px;
+height:46px;
+border-radius:50%;
+background:#eef0ef;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+cursor:pointer;
+transition:transform .25s ease, background .3s ease;
+}
+.wallet-arrow:active{ transform:scale(.85); }
+.wallet-arrow svg{ width:16px; height:16px; color:#0a0a0a; }
+ 
+.wallet-balance-label{
+margin-top:16px;
+font-size:12px;
+color:#9a9a9a;
+font-weight:500;
+text-align:right;
+direction:rtl;
+}
+.wallet-balance-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-top:4px;
+}
+.wallet-balance-amount{
+font-family:'Rubik', sans-serif;
+font-weight:900;
+font-size:24px;
+color:var(--card-white-text);
+direction:ltr;
+text-align:left;
+}
+.wallet-ticker{
+display:flex;
+align-items:center;
+gap:8px;
+}
+.wallet-ticker span.ticker-label{
+font-family:'Rubik', sans-serif;
+font-weight:900;
+font-size:22px;
+background:linear-gradient(135deg, #ffe066, #f5c400);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+text-shadow:0 0 30px rgba(245,196,0,0.2);
+letter-spacing:1px;
+}
+ 
+.wallet-divider{
+border:none;
+border-top:1px solid var(--divider);
+margin:14px 0 12px;
+transition:border-color .45s ease;
+}
+.wallet-bottom{
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:6px;
+color:#9a9a9a;
+font-size:13px;
+font-weight:600;
+}
+.wallet-bottom .wallet-date{
+display:flex;
+align-items:center;
+gap:6px;
+font-family:'Rubik', sans-serif;
+font-weight:400;
+font-size:12px;
+color:var(--text-muted);
+}
+.wallet-bottom .wallet-date svg{
+width:14px;
+height:14px;
+color:var(--text-muted);
+}
+ 
+/* ===== INFO CARDS ===== */
+.info-row{
+display:flex;
+gap:12px;
+margin-bottom:14px;
+}
+.info-card{
+flex:1;
+background-color:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:20px;
+padding:16px 14px;
+position:relative;
+min-height:122px;
+display:flex;
+flex-direction:column;
+transition:background-color .45s ease, border-color .45s ease;
+}
+.info-card .corner-icon{
+position:absolute;
+top:16px;
+left:14px;
+width:32px;
+height:32px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--text-muted);
+border:none;
+background:rgba(255,255,255,0.03);
+cursor:pointer;
+border-radius:12px;
+transition:color .45s ease, background-color .3s ease, transform .15s ease, box-shadow .3s ease;
+}
+.corner-icon svg{ width:18px; height:18px; }
+.corner-icon:active{ transform:scale(.88); background:rgba(255,255,255,0.12); }
+#copyBtn.copied{ color:var(--green); background:rgba(52,215,123,0.12); }
+@keyframes pop{ 0%{transform:scale(1);} 40%{transform:scale(1.4) rotate(-5deg);} 100%{transform:scale(1) rotate(0deg);} }
+#copyBtn.copied svg{ animation:pop .4s cubic-bezier(.34,1.56,.64,1); }
+ 
+.info-card .badge-icon{
+align-self:flex-end;
+width:42px;
+height:42px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.badge-icon.purple{
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+box-shadow:0 4px 16px rgba(138,79,201,.35);
+}
+.badge-icon.purple svg{ width:21px; height:21px; color:#e3cfff; }
+.badge-icon.blue{
+background:linear-gradient(140deg, var(--blue-1), var(--blue-2));
+box-shadow:0 4px 16px rgba(79,134,217,.35);
+}
+.badge-icon.blue .hash{
+font-family:'Rubik', sans-serif;
+font-size:21px;
+font-weight:800;
+line-height:1;
+color:#cfe1ff;
+text-shadow:0 0 10px rgba(143,180,255,.85);
+}
+.info-card .label{
+margin-top:auto;
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+text-align:right;
+direction:rtl;
+transition:color .45s ease;
+}
+.info-card .value{
+margin-top:5px;
+font-size:15px;
+font-weight:800;
+color:var(--page-text);
+text-align:right;
+transition:color .45s ease;
+}
+ 
+/* ===== INVITE BANNER ===== */
+.invite-banner{
+background:var(--pill-bg);
+border-radius:24px;
+padding:12px 14px;
+display:flex;
+align-items:center;
+gap:10px;
+color:var(--pill-text);
+transition:background-color .45s ease;
+margin-bottom:16px;
+cursor:pointer;
+}
+.invite-banner .chevron-circle{
+width:34px;
+height:34px;
+border-radius:50%;
+background:var(--circle-bg);
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+transition:background-color .45s ease;
+}
+.invite-banner .chevron-circle svg{ width:14px; height:14px; color:#3d3d3d; }
+.invite-text{
+flex:1;
+text-align:right;
+direction:rtl;
+}
+.invite-text .title{
+font-size:15px;
+font-weight:800;
+}
+.invite-text .subtitle{
+font-size:12px;
+color:#6e6e6e;
+font-weight:500;
+margin-top:2px;
+}
+.invite-banner .yellow-btn{
+width:46px;
+height:46px;
+border-radius:15px;
+background:linear-gradient(140deg, var(--yellow-1), var(--yellow-2));
+box-shadow:0 4px 16px rgba(245,196,0,.4);
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+cursor:pointer;
+transition:transform .25s ease, box-shadow .3s ease;
+}
+.invite-banner .yellow-btn:active{ transform:scale(.88); }
+.invite-banner .yellow-btn svg{ width:19px; height:19px; color:#231a00; }
+ 
+/* ===== QUICK MENU ===== */
+.quick-menu{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:18px;
+}
+.quick-item{
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:18px;
+padding:14px 8px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:8px;
+cursor:pointer;
+transition:background-color .35s ease, transform .25s ease, border-color .35s ease;
+-webkit-tap-highlight-color:transparent;
+}
+.quick-item:active{ transform:scale(.94); }
+.quick-icon{
+width:40px;
+height:40px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+box-shadow:0 4px 14px rgba(138,79,201,.25);
+flex-shrink:0;
+}
+.quick-icon svg{ width:20px; height:20px; color:#e3cfff; }
+.quick-item:nth-child(2) .quick-icon{
+background:linear-gradient(140deg, var(--blue-1), var(--blue-2));
+box-shadow:0 4px 14px rgba(79,134,217,.25);
+}
+.quick-item:nth-child(3) .quick-icon{
+background:linear-gradient(140deg, var(--yellow-1), var(--yellow-2));
+box-shadow:0 4px 14px rgba(245,196,0,.25);
+}
+.quick-item:nth-child(3) .quick-icon svg{ color:#231a00; }
+.quick-item:nth-child(4) .quick-icon{
+background:linear-gradient(140deg, var(--green), #1a9e5a);
+box-shadow:0 4px 14px rgba(52,215,123,.25);
+}
+.quick-item span{
+font-size:12px;
+font-weight:600;
+color:var(--page-text);
+text-align:center;
+transition:color .45s ease;
+}
+ 
+/* ===== FOOTER ===== */
+.footer{
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px 0 6px;
+border-top:1px solid var(--card-surface-border);
+margin-top:4px;
+}
+.footer-box{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+direction:rtl;
+font-size:13px;
+color:var(--text-muted);
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:16px;
+padding:10px 18px;
+transition:all .3s ease;
+cursor:pointer;
+}
+.footer-box:active{ transform:scale(.96); }
+.footer-dev{ font-weight:500; color:var(--text-muted); }
+.footer-brand{
+font-family:'Rubik', sans-serif;
+font-weight:900;
+font-size:15px;
+background:linear-gradient(135deg, var(--yellow-1), var(--yellow-2));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+letter-spacing:0.5px;
+}
+ 
+/* ===== BOTTOM SHEET (invite) ===== */
+.invite-sheet-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+-webkit-backdrop-filter:blur(10px);
+z-index:9000;
+opacity:0;
+pointer-events:none;
+transition:opacity .35s ease;
+}
+.invite-sheet-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.invite-sheet{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%) translateY(100%);
+width:100%;
+max-width:412px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:32px 32px 0 0;
+padding:24px 24px 30px;
+z-index:9001;
+transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+box-shadow:0 -10px 40px rgba(0,0,0,0.4);
+}
+.invite-sheet.active{
+transform:translateX(-50%) translateY(0);
+}
+.invite-sheet-handle{
+width:50px;
+height:4px;
+border-radius:4px;
+background:var(--text-muted);
+margin:0 auto 16px;
+opacity:0.3;
+}
+.invite-sheet-title{
+font-size:18px;
+font-weight:800;
+color:var(--page-text);
+text-align:center;
+margin-bottom:6px;
+}
+.invite-sheet-subtitle{
+font-size:13px;
+color:var(--text-muted);
+text-align:center;
+margin-bottom:18px;
+}
+.invite-link-box{
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:16px;
+padding:12px 16px;
+margin-bottom:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.invite-link-box span{
+font-size:13px;
+color:var(--text-soft);
+direction:ltr;
+text-align:left;
+flex:1;
+word-break:break-all;
+font-family:'Rubik', sans-serif;
+font-weight:400;
+}
+.invite-link-box .copy-link-btn{
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+border:none;
+border-radius:10px;
+padding:6px 12px;
+color:#fff;
+font-size:12px;
+font-weight:600;
+cursor:pointer;
+transition:all .3s ease;
+white-space:nowrap;
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+}
+.invite-link-box .copy-link-btn:active{ transform:scale(.92); }
+.invite-buttons{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+.invite-btn{
+width:100%;
+padding:14px 20px;
+border:none;
+border-radius:16px;
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+transition:all .3s ease;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+.invite-btn:active{ transform:scale(.94); }
+.invite-btn.telegram{
+background:linear-gradient(140deg, #4f86d9, #0c1c44);
+color:#fff;
+box-shadow:0 4px 20px rgba(79,134,217,0.3);
+}
+.invite-btn.telegram svg{ width:22px; height:22px; color:#fff; }
+.invite-btn.copy-text{
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+color:var(--page-text);
+}
+.invite-btn.copy-text svg{ width:20px; height:20px; color:var(--text-muted); }
+.invite-sheet-close{
+width:100%;
+padding:12px;
+border:none;
+border-radius:14px;
+background:transparent;
+color:var(--text-muted);
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:all .3s ease;
+margin-top:6px;
+}
+ 
+/* ===== ABOUT BOTTOM SHEET ===== */
+.bottom-sheet-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(6px);
+-webkit-backdrop-filter:blur(6px);
+z-index:2000;
+opacity:0;
+pointer-events:none;
+transition:opacity .35s ease;
+}
+.bottom-sheet-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.bottom-sheet{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%) translateY(100%);
+width:100%;
+max-width:412px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:28px 28px 0 0;
+padding:12px 24px 30px;
+z-index:2001;
+transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+box-shadow:0 -10px 40px rgba(0,0,0,0.3);
+touch-action:none;
+}
+.bottom-sheet.active{
+transform:translateX(-50%) translateY(0);
+}
+.sheet-drag-area{
+cursor:grab;
+touch-action:none;
+padding-bottom:4px;
+}
+.sheet-handle{
+width:70px;
+height:4px;
+border-radius:4px;
+background:var(--text-muted);
+margin:0 auto 16px;
+opacity:0.4;
+cursor:grab;
+touch-action:none;
+}
+.sheet-avatar{
+width:80px;
+height:80px;
+border-radius:50%;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 12px;
+box-shadow:0 4px 24px rgba(138,79,201,0.3);
+}
+.sheet-avatar svg{ width:40px; height:40px; color:#e3cfff; }
+.sheet-name{
+font-family:'Rubik', sans-serif;
+font-weight:900;
+font-size:20px;
+background:linear-gradient(135deg, var(--yellow-1), var(--yellow-2));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+text-align:center;
+letter-spacing:0.5px;
+margin-bottom:2px;
+}
+.sheet-username{
+font-size:14px;
+color:var(--text-muted);
+font-weight:500;
+text-align:center;
+direction:ltr;
+margin-bottom:16px;
+}
+.sheet-divider{
+border:none;
+border-top:1px solid var(--card-surface-border);
+margin:0 0 16px 0;
+}
+.sheet-desc{
+font-size:13px;
+color:var(--text-soft);
+line-height:1.7;
+text-align:center;
+direction:rtl;
+margin-bottom:16px;
+}
+.sheet-btn{
+width:100%;
+padding:14px 20px;
+border:none;
+border-radius:16px;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+color:#fff;
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+transition:all .3s ease;
+box-shadow:0 4px 20px rgba(138,79,201,0.35);
+}
+.sheet-btn:active{ transform:scale(.94); }
+.sheet-btn svg{ width:20px; height:20px; color:#e3cfff; flex-shrink:0; }
+ 
+/* ===== SUPPORT SHEET ===== */
+.support-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(6px);
+-webkit-backdrop-filter:blur(6px);
+z-index:3000;
+opacity:0;
+pointer-events:none;
+transition:opacity .35s ease;
+}
+.support-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.support-sheet{
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%) translateY(100%);
+width:100%;
+max-width:412px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:28px 28px 0 0;
+padding:20px 20px 30px;
+z-index:3001;
+transition:transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+box-shadow:0 -10px 40px rgba(0,0,0,0.3);
+}
+.support-sheet.active{
+transform:translateX(-50%) translateY(0);
+}
+.support-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:12px;
+cursor:grab;
+touch-action:none;
+}
+.support-close{
+width:36px;
+height:36px;
+border-radius:50%;
+background:var(--card-surface-border);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:all .3s ease;
+color:var(--text-muted);
+border:none;
+}
+.support-close:active{ transform:scale(.85); }
+.support-close svg{ width:20px; height:20px; stroke:currentColor; }
+.support-title{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:18px;
+font-weight:800;
+color:var(--page-text);
+}
+.support-title svg{ width:24px; height:24px; color:var(--purple-1); }
+.support-subtitle{
+font-size:14px;
+color:var(--text-muted);
+font-weight:500;
+margin-bottom:20px;
+text-align:right;
+direction:rtl;
+}
+.support-options{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+.support-item{
+display:flex;
+align-items:center;
+gap:14px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:18px;
+padding:14px 16px;
+cursor:pointer;
+transition:all .3s ease;
+}
+.support-item:active{ transform:scale(.97); }
+.support-icon{
+width:44px;
+height:44px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+.support-icon svg{ width:22px; height:22px; color:#e3cfff; }
+.support-info{
+flex:1;
+display:flex;
+flex-direction:column;
+gap:2px;
+text-align:right;
+direction:rtl;
+}
+.support-label{
+font-size:15px;
+font-weight:700;
+color:var(--page-text);
+}
+.support-desc{
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+}
+.support-arrow{
+width:28px;
+height:28px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--text-muted);
+flex-shrink:0;
+}
+.support-arrow svg{ width:18px; height:18px; }
+ 
+/* ===== ORDERS OVERLAY ===== */
+.orders-overlay{
+position:fixed;
+inset:0;
+background:var(--bg);
+z-index:5000;
+opacity:0;
+pointer-events:none;
+transition:opacity .4s ease;
+}
+.orders-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.orders-page{
+width:100%;
+max-width:412px;
+height:100vh;
+padding:22px 18px 30px;
+overflow-y:auto;
+overflow-x:hidden;
+position:relative;
+margin:0 auto;
+}
+.orders-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:16px;
+}
+.orders-back{
+width:40px;
+height:40px;
+border-radius:12px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:all .3s ease;
+color:var(--text-muted);
+}
+.orders-back:active{ transform:scale(.88); }
+.orders-back svg{ width:22px; height:22px; stroke:currentColor; }
+.orders-title{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:800;
+color:var(--page-text);
+}
+.orders-title svg{ width:26px; height:26px; color:var(--purple-1); }
+.orders-subtitle{
+font-size:13px;
+color:var(--text-muted);
+font-weight:500;
+text-align:right;
+direction:rtl;
+margin-bottom:16px;
+}
+.orders-search{
+display:flex;
+align-items:center;
+gap:10px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:16px;
+padding:12px 16px;
+margin-bottom:18px;
+transition:all .3s ease;
+}
+.orders-search:focus-within{
+border-color:var(--purple-1);
+box-shadow:0 0 0 3px rgba(138,79,201,0.15);
+}
+.orders-search svg{ width:20px; height:20px; color:var(--text-muted); flex-shrink:0; }
+.orders-search input{
+flex:1;
+background:transparent;
+border:none;
+outline:none;
+color:var(--page-text);
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+font-size:14px;
+font-weight:500;
+direction:rtl;
+}
+.orders-search input::placeholder{ color:var(--text-muted); font-weight:400; }
+.orders-filter{
+display:flex;
+gap:8px;
+margin-bottom:18px;
+overflow-x:auto;
+padding-bottom:4px;
+}
+.orders-filter::-webkit-scrollbar{ height:2px; }
+.orders-filter::-webkit-scrollbar-thumb{ background:var(--text-muted); border-radius:10px; }
+.filter-btn{
+padding:8px 18px;
+border-radius:20px;
+border:1px solid var(--card-surface-border);
+background:var(--card-surface);
+color:var(--text-muted);
+font-family:'Rubik', 'Vazirmatn', sans-serif;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+transition:all .3s ease;
+white-space:nowrap;
+}
+.filter-btn.active{
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+color:#fff;
+border-color:var(--purple-1);
+box-shadow:0 4px 16px rgba(138,79,201,0.3);
+}
+.order-card{
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:20px;
+padding:16px 18px;
+margin-bottom:14px;
+transition:all .3s ease;
+cursor:default;
+}
+.order-card-top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:8px;
+}
+.order-id{
+font-family:'Rubik', sans-serif;
+font-weight:700;
+font-size:14px;
+color:var(--page-text);
+}
+.order-id span{ color:var(--text-muted); font-weight:500; }
+.order-status{
+display:flex;
+align-items:center;
+gap:6px;
+padding:4px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:700;
+}
+.order-status.pending{ background:rgba(255,169,77,0.15); color:#ffa94d; }
+.order-status.processing{ background:rgba(79,134,217,0.15); color:#4f86d9; }
+.order-status.completed{ background:rgba(52,215,123,0.15); color:#34d77b; }
+.order-status.cancelled{ background:rgba(255,107,107,0.15); color:#ff6b6b; }
+.order-card-middle{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:8px;
+}
+.order-product{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.order-product-icon{
+width:44px;
+height:44px;
+border-radius:12px;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+.order-product-icon svg{ width:22px; height:22px; color:#e3cfff; }
+.order-product-info{
+display:flex;
+flex-direction:column;
+gap:2px;
+}
+.order-product-name{
+font-size:15px;
+font-weight:700;
+color:var(--page-text);
+}
+.order-product-desc{
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+}
+.order-stats{
+display:flex;
+align-items:center;
+gap:14px;
+}
+.order-stats .stat-item{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+}
+.order-stats .stat-value{
+font-family:'Rubik', sans-serif;
+font-weight:800;
+font-size:16px;
+color:var(--page-text);
+direction:ltr;
+}
+.order-stats .stat-label{
+font-size:10px;
+color:var(--text-muted);
+font-weight:500;
+}
+.order-card-bottom{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding-top:10px;
+border-top:1px solid var(--card-surface-border);
+}
+.order-date{
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+display:flex;
+align-items:center;
+gap:6px;
+}
+.order-date svg{ width:14px; height:14px; }
+.order-rakt{
+display:flex;
+align-items:center;
+gap:6px;
+font-family:'Rubik', sans-serif;
+font-weight:700;
+font-size:14px;
+background:linear-gradient(135deg, #ffe066, #f5c400);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+}
+.empty-orders{
+text-align:center;
+padding:40px 20px;
+}
+.empty-orders svg{
+width:80px;
+height:80px;
+color:var(--text-muted);
+opacity:0.3;
+margin-bottom:16px;
+}
+.empty-orders h3{
+font-size:18px;
+font-weight:700;
+color:var(--text-muted);
+margin-bottom:6px;
+}
+.empty-orders p{
+font-size:13px;
+color:var(--text-muted);
+opacity:0.6;
+}
+ 
+/* ===== FAQ ===== */
+.faq-overlay{
+position:fixed;
+inset:0;
+background:var(--bg);
+z-index:7000;
+opacity:0;
+pointer-events:none;
+transition:opacity .4s ease;
+}
+.faq-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.faq-page{
+width:100%;
+max-width:412px;
+height:100vh;
+padding:22px 18px 30px;
+overflow-y:auto;
+overflow-x:hidden;
+position:relative;
+margin:0 auto;
+}
+.faq-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:18px;
+}
+.faq-back{
+width:40px;
+height:40px;
+border-radius:12px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:all .3s ease;
+color:var(--text-muted);
+}
+.faq-back:active{ transform:scale(.88); }
+.faq-back svg{ width:22px; height:22px; stroke:currentColor; }
+.faq-title{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:800;
+color:var(--page-text);
+}
+.faq-title svg{ width:26px; height:26px; color:var(--purple-1); }
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:8px;
+margin-bottom:20px;
+}
+.faq-item{
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:18px;
+overflow:hidden;
+transition:all .3s ease;
+}
+.faq-item-header{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px 16px;
+cursor:pointer;
+transition:all .3s ease;
+-webkit-tap-highlight-color:transparent;
+}
+.faq-item-header:active{ transform:scale(.98); }
+.faq-icon{
+width:30px;
+height:30px;
+border-radius:50%;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+.faq-icon svg{ width:16px; height:16px; color:#e3cfff; }
+.faq-question{
+flex:1;
+font-size:14px;
+font-weight:600;
+color:var(--page-text);
+}
+.faq-arrow{
+width:24px;
+height:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:var(--text-muted);
+transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+flex-shrink:0;
+}
+.faq-arrow svg{ width:18px; height:18px; transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+.faq-item.active .faq-arrow svg{ transform:rotate(180deg); }
+.faq-answer{
+max-height:0;
+overflow:hidden;
+transition:max-height .5s cubic-bezier(.34,1.56,.64,1), padding .4s ease, opacity .4s ease;
+opacity:0;
+padding:0 16px;
+}
+.faq-item.active .faq-answer{
+max-height:400px;
+padding:0 16px 16px 16px;
+opacity:1;
+}
+.faq-answer p{
+font-size:13px;
+color:var(--text-soft);
+line-height:1.8;
+direction:rtl;
+text-align:justify;
+margin:0;
+}
+.faq-support{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+padding:14px 20px;
+border-radius:18px;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+color:#fff;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+transition:all .3s ease;
+box-shadow:0 4px 20px rgba(138,79,201,0.3);
+margin-top:8px;
+}
+.faq-support:active{ transform:scale(.94); }
+.faq-support svg{ width:22px; height:22px; color:#e3cfff; }
+ 
+/* ===== SUBS OVERLAY ===== */
+.subs-overlay{
+position:fixed;
+inset:0;
+background:var(--bg);
+z-index:8000;
+opacity:0;
+pointer-events:none;
+transition:opacity .4s ease;
+}
+.subs-overlay.active{
+opacity:1;
+pointer-events:all;
+}
+.subs-page{
+width:100%;
+max-width:412px;
+height:100vh;
+padding:22px 18px 30px;
+overflow-y:auto;
+overflow-x:hidden;
+position:relative;
+margin:0 auto;
+}
+.subs-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:16px;
+}
+.subs-back{
+width:40px;
+height:40px;
+border-radius:12px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:all .3s ease;
+color:var(--text-muted);
+}
+.subs-back:active{ transform:scale(.88); }
+.subs-back svg{ width:22px; height:22px; stroke:currentColor; }
+.subs-title{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:20px;
+font-weight:800;
+color:var(--page-text);
+}
+.subs-title svg{ width:26px; height:26px; color:var(--purple-1); }
+.subs-stats{
+display:flex;
+gap:12px;
+margin-bottom:18px;
+}
+.subs-stat-card{
+flex:1;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:16px;
+padding:14px 12px;
+text-align:center;
+}
+.subs-stat-card .stat-number{
+font-family:'Rubik', sans-serif;
+font-weight:900;
+font-size:22px;
+color:var(--page-text);
+}
+.subs-stat-card .stat-label{
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+margin-top:2px;
+}
+.subs-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+margin-bottom:18px;
+}
+.subs-item{
+display:flex;
+align-items:center;
+gap:12px;
+background:var(--card-surface);
+border:1px solid var(--card-surface-border);
+border-radius:16px;
+padding:12px 14px;
+transition:all .3s ease;
+cursor:default;
+}
+.subs-avatar{
+width:40px;
+height:40px;
+border-radius:50%;
+background:linear-gradient(140deg, var(--purple-1), var(--purple-2));
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+}
+.subs-avatar svg{ width:20px; height:20px; color:#e3cfff; }
+.subs-info{
+flex:1;
+}
+.subs-info .subs-name{
+font-size:14px;
+font-weight:700;
+color:var(--page-text);
+}
+.subs-info .subs-detail{
+font-size:12px;
+color:var(--text-muted);
+font-weight:500;
+}
+.subs-info .subs-detail span{ direction:ltr; display:inline-block; }
+.subs-badge{
+padding:4px 12px;
+border-radius:20px;
+font-size:11px;
+font-weight:700;
+}
+.subs-badge.active{ background:rgba(52,215,123,0.15); color:#34d77b; }
+.subs-badge.inactive{ background:rgba(255,107,107,0.15); color:#ff6b6b; }
+.subs-badge.pending{ background:rgba(255,169,77,0.15); color:#ffa94d; }
+.subs-empty{
+text-align:center;
+padding:60px 20px;
+}
+.subs-empty svg{
+width:80px;
+height:80px;
+color:var(--text-muted);
+opacity:0.3;
+margin-bottom:16px;
+}
+.subs-empty h3{
+font-size:18px;
+font-weight:700;
+color:var(--text-muted);
+margin-bottom:6px;
+}
+.subs-empty p{
+font-size:13px;
+color:var(--text-muted);
+opacity:0.6;
+}
+ 
+/* ===== TAB CONTENT ===== */
+.tab-content {
+  display: none;
+  width: 100%;
+}
+.tab-content.active {
+  display: block;
+}
+.placeholder-page {
+  width: 100%;
+  max-width: 412px;
+  min-height: 100vh;
+  padding: 22px 18px 136px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  direction: rtl;
+  margin:0 auto;
+}
+.placeholder-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.placeholder-icon svg { width: 38px; height: 38px; }
+.placeholder-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--page-text);
+  transition: color .45s ease;
+}
+.placeholder-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color .45s ease;
+}
+.placeholder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  background: rgba(138,79,201,0.12);
+  color: var(--purple-1);
+  border: 1px solid rgba(138,79,201,0.2);
+  margin-top: 6px;
+}
+.placeholder-badge svg{ width:16px; height:16px; }
+ 
+/* ===== ORDER PLACEHOLDER ===== */
+.order-placeholder {
+  width: 100%;
+  max-width: 412px;
+  min-height: 100vh;
+  padding: 30px 20px 60px;
+  margin: 0 auto;
+  direction: rtl;
+  font-family: 'Vazirmatn', sans-serif;
+  background: #000;
+  color: #fff;
+}
+.order-placeholder .page-title {
+  text-align: right;
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.order-placeholder .page-subtitle {
+  text-align: right;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+}
+.order-placeholder .section-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.order-placeholder .section-label svg {
+  width: 26px;
+  height: 26px;
+}
+.order-placeholder .cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  margin-bottom: 0;
+}
+.order-placeholder .card {
+  border-radius: 22px;
+  padding: 0 14px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 168px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: border 0.15s, transform 0.12s;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+}
+.order-placeholder .card:active {
+  transform: scale(0.97);
+}
+.order-placeholder .card-reaction {
+  background: #FF6C6C;
+}
+.order-placeholder .card-blue {
+  background: #3b7ef4;
+}
+.order-placeholder .card-reaction.selected {
+  border: 3px solid #ffffff;
+}
+.order-placeholder .card-blue.selected {
+  border: 3px solid #a8d0ff;
+}
+.order-placeholder .icon-wrap {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+  margin-top: 14px;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.order-placeholder .card-title {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  text-align: center;
+  line-height: 1.35;
+}
+.order-placeholder .badge {
+  border-radius: 50px;
+  padding: 5px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  font-family: 'Vazirmatn', sans-serif;
+}
+.order-placeholder .badge-reaction {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.order-placeholder .badge-blue {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.order-placeholder .icon-reaction {
+  width: 65px;
+  height: 65px;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.order-placeholder .icon-reaction svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+  animation: glow-pulse 2s ease-in-out infinite;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.6));
+    transform: scale(1.04);
+  }
+}
+.order-placeholder .icon-view {
+  width: 65px;
+  height: 65px;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.order-placeholder .icon-view svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 0 30px rgba(100, 180, 255, 0.3));
+  animation: eye-glow 2.5s ease-in-out infinite;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  transform: scaleX(-1);
+}
+@keyframes eye-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(100, 180, 255, 0.2));
+    transform: scaleX(-1) scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(100, 180, 255, 0.5));
+    transform: scaleX(-1) scale(1.04);
+  }
+}
+.order-placeholder .footer-deco {
+  margin-top: 40px;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.05;
+}
+.order-placeholder .footer-deco .line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+}
+.order-placeholder .footer-deco .dots {
+  display: flex;
+  gap: 8px;
+}
+.order-placeholder .footer-deco .dots span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  animation: dot-float 3s ease-in-out infinite;
+}
+.order-placeholder .footer-deco .dots span:nth-child(2) {
+  animation-delay: 0.6s;
+}
+.order-placeholder .footer-deco .dots span:nth-child(3) {
+  animation-delay: 1.2s;
+}
+@keyframes dot-float {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+.order-placeholder .footer-deco .text {
+  font-size: 9px;
+  color: #555;
+  letter-spacing: 4px;
+  font-weight: 300;
+}
+ 
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 412px;
+  height: 110px;
+  background: linear-gradient(180deg, var(--nav-bg-top) 0%, var(--nav-bg-bottom) 100%);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  padding-bottom: 22px;
+  border-radius: 30px 30px 0 0;
+  box-shadow: var(--nav-outer-shadow);
+  transition: background .45s ease, box-shadow .45s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  direction: rtl;
+  user-select: none;
+  z-index: 200;
+}
+.bottom-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--nav-border-edge) 10%,
+    var(--nav-border-mid) 50%,
+    var(--nav-border-edge) 90%,
+    transparent 100%
+  );
+  z-index: 20;
+  pointer-events: none;
+  border-radius: 30px 30px 0 0;
+  animation: navShimmer 3s ease-in-out infinite;
+}
+@keyframes navShimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.box-indicator {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85px;
+  height: 85px;
+  background: var(--nav-box-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 25px 25px 0 0;
+  border: 1px solid var(--nav-box-border);
+  transition: background .45s ease, border-color .45s ease;
+  z-index: 1;
+  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  filter: drop-shadow(0 -10px 25px var(--accent-color))
+          drop-shadow(0 -2px 10px var(--accent-glow));
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+  will-change: left;
+}
+.box-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65px;
+  height: 35px;
+  background: radial-gradient(ellipse, var(--accent-color) 0%, transparent 70%);
+  filter: blur(15px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.box-indicator.glow::after { opacity: 1; }
+ 
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-decoration: none;
+  cursor: pointer;
+  width: 75px;
+  padding-bottom: 16px;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease;
+  position: relative;
+  outline: none;
+}
+.nav-item:active { transform: scale(0.95); }
+.nav-item svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: var(--nav-inactive);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  margin-bottom: 6px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 0 0px transparent);
+  pointer-events: none;
+}
+.nav-item span {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--nav-inactive);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  letter-spacing: 0.3px;
+  pointer-events: none;
+  font-family: 'Rubik', 'Vazirmatn', sans-serif;
+}
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 38px;
+  height: 3px;
+  background: var(--nav-active-line);
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 15px var(--nav-active-shadow);
+}
+.nav-item.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+.nav-item.active svg {
+  stroke: var(--nav-active);
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 15px var(--nav-active-shadow));
+}
+.nav-item.active span {
+  color: var(--nav-active);
+  text-shadow: 0 0 20px var(--nav-active-shadow);
+}
+@keyframes navSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nav-item { animation: navSlideUp 0.6s ease forwards; }
+.nav-item:nth-child(1) { animation-delay: 0s; }
+.nav-item:nth-child(2) { animation-delay: 0.1s; }
+.nav-item:nth-child(3) { animation-delay: 0.2s; }
+.nav-item:nth-child(4) { animation-delay: 0.3s; }
+ 
+@media (max-width: 360px) {
+  .nav-item svg { width: 24px; height: 24px; }
+  .nav-item span { font-size: 12px; }
+  .box-indicator { width: 70px; height: 70px; }
+  .bottom-nav { height: 100px; padding-bottom: 18px; }
+}
+@media (max-width: 320px) {
+  .nav-item { width: 65px; }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-item span { font-size: 11px; }
+  .box-indicator { width: 60px; height: 60px; bottom: 12px; }
+}
+ 
+/* ===== SKELETON LOADER ===== */
+.skeleton-loader{
+  position:fixed;
+  inset:0;
+  background:var(--sk-bg);
+  z-index:9999;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  overflow:hidden;
+  transition:opacity .45s cubic-bezier(.4,0,.2,1), visibility .45s ease;
+}
+.skeleton-loader.sk-hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+@keyframes skShimmer{
+  0%  { background-position:200% 0; }
+  100%{ background-position:-200% 0; }
+}
+.sk-s{
+  background:linear-gradient(90deg,
+    var(--sk-base) 25%,
+    var(--sk-shine) 50%,
+    var(--sk-base) 75%
+  );
+  background-size:200% 100%;
+  animation:skShimmer 1.55s ease-in-out infinite;
+  flex-shrink:0;
+}
+.sk-screen{
+  width:100%;
+  max-width:412px;
+  padding:22px 18px 0;
+  flex:1;
+  overflow:hidden;
+}
+.sk-hdr{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+.sk-hdr-icons{
+  display:flex;
+  gap:16px;
+  padding-top:4px;
+}
+.sk-hdr-title{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:6px;
+}
+.sk-wallet{
+  background:var(--sk-card-bg);
+  border-radius:24px;
+  padding:20px 18px 16px;
+  margin-bottom:14px;
+  overflow:hidden;
+  transition:background .45s ease;
+}
+.sk-wallet-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+.sk-info-row{
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+}
+.sk-info-card{
+  flex:1;
+  background:var(--sk-card-bg);
+  border-radius:20px;
+  padding:16px 14px;
+  min-height:122px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  overflow:hidden;
+  transition:background .45s ease;
+}
+.sk-invite{
+  background:var(--sk-card-bg);
+  border-radius:24px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:16px;
+  overflow:hidden;
+  transition:background .45s ease;
+}
+.sk-quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.sk-quick-item{
+  background:var(--sk-card-bg);
+  border-radius:18px;
+  padding:14px 8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  overflow:hidden;
+  transition:background .45s ease;
+}
+.sk-div{
+  border:none;
+  height:1px;
+  background:var(--sk-base);
+  margin:14px 0 12px;
+  animation:none !important;
+}
+.sk-bottom-nav{
+  width:100%;
+  max-width:412px;
+  height:110px;
+  background:var(--sk-nav-bg);
+  border-radius:30px 30px 0 0;
+  display:flex;
+  justify-content:space-evenly;
+  align-items:flex-end;
+  padding-bottom:22px;
+  flex-shrink:0;
+  transition:background .45s ease;
+}
+.sk-nav-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  padding-bottom:16px;
+  animation-delay:var(--d,0s) !important;
+}
+.sk-nav-item .sk-s:nth-child(2){
+  margin-top:6px;
+  animation-delay:calc(var(--d,0s) + .05s) !important;
+}
+.sk-c{ border-radius:50% !important; }
+.sk-r6{ border-radius:6px !important; }
+.sk-r10{ border-radius:10px !important; }
+.sk-r13{ border-radius:13px !important; }
+.sk-r15{ border-radius:15px !important; }
+.sk-r20{ border-radius:20px !important; }
+ 
+/* ===== UTILITIES ===== */
+.click-pop{
+animation:clickPop .4s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes clickPop{
+0%{ transform:scale(1); }
+35%{ transform:scale(1.15); }
+70%{ transform:scale(0.95); }
+100%{ transform:scale(1); }
+}
+ 
+/* ===== SCROLLBAR - HIDDEN ===== */
+::-webkit-scrollbar{ width:0px; height:0px; background:transparent; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:transparent; }
+*{ scrollbar-width:none; -ms-overflow-style:none; }
+</style>
+</head>
+<body>
+ 
+<!-- ===== SKELETON LOADER ===== -->
+<div class="skeleton-loader" id="skeletonLoader">
+  <div class="sk-screen">
+    <div class="sk-hdr">
+      <div class="sk-hdr-icons">
+        <div class="sk-s sk-c" style="width:24px;height:24px;"></div>
+        <div class="sk-s sk-c" style="width:24px;height:24px;"></div>
+      </div>
+      <div class="sk-hdr-title">
+        <div class="sk-s sk-r10" style="width:110px;height:20px;"></div>
+        <div class="sk-s sk-r6"  style="width:72px;height:12px;"></div>
+      </div>
+    </div>
+    <div class="sk-wallet">
+      <div class="sk-wallet-top">
+        <div class="sk-s sk-r13" style="width:46px;height:46px;"></div>
+        <div class="sk-s sk-r10" style="width:130px;height:18px;"></div>
+        <div class="sk-s sk-c"   style="width:46px;height:46px;"></div>
+      </div>
+      <div class="sk-s sk-r6" style="width:80px;height:11px;margin-bottom:6px;"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div class="sk-s sk-r10" style="width:155px;height:28px;"></div>
+        <div class="sk-s sk-r10" style="width:72px;height:26px;"></div>
+      </div>
+      <div class="sk-div"></div>
+      <div class="sk-s sk-r6" style="width:110px;height:12px;"></div>
+    </div>
+    <div class="sk-info-row">
+      <div class="sk-info-card">
+        <div class="sk-s sk-r10" style="width:32px;height:32px;"></div>
+        <div class="sk-s sk-r10" style="width:42px;height:42px;align-self:flex-end;margin-top:4px;"></div>
+        <div class="sk-s sk-r6"  style="width:58px;height:11px;margin-top:auto;"></div>
+        <div class="sk-s sk-r6"  style="width:76px;height:14px;margin-top:5px;"></div>
+      </div>
+      <div class="sk-info-card">
+        <div class="sk-s sk-r10" style="width:32px;height:32px;"></div>
+        <div class="sk-s sk-r10" style="width:42px;height:42px;align-self:flex-end;margin-top:4px;"></div>
+        <div class="sk-s sk-r6"  style="width:58px;height:11px;margin-top:auto;"></div>
+        <div class="sk-s sk-r6"  style="width:76px;height:14px;margin-top:5px;"></div>
+      </div>
+    </div>
+    <div class="sk-invite">
+      <div class="sk-s sk-c"   style="width:34px;height:34px;"></div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+        <div class="sk-s sk-r6" style="width:96px;height:14px;"></div>
+        <div class="sk-s sk-r6" style="width:72px;height:11px;"></div>
+      </div>
+      <div class="sk-s sk-r15" style="width:46px;height:46px;"></div>
+    </div>
+    <div class="sk-quick">
+      <div class="sk-quick-item">
+        <div class="sk-s sk-r13" style="width:40px;height:40px;"></div>
+        <div class="sk-s sk-r6"  style="width:44px;height:10px;margin-top:8px;"></div>
+      </div>
+      <div class="sk-quick-item">
+        <div class="sk-s sk-r13" style="width:40px;height:40px;"></div>
+        <div class="sk-s sk-r6"  style="width:44px;height:10px;margin-top:8px;"></div>
+      </div>
+      <div class="sk-quick-item">
+        <div class="sk-s sk-r13" style="width:40px;height:40px;"></div>
+        <div class="sk-s sk-r6"  style="width:44px;height:10px;margin-top:8px;"></div>
+      </div>
+      <div class="sk-quick-item">
+        <div class="sk-s sk-r13" style="width:40px;height:40px;"></div>
+        <div class="sk-s sk-r6"  style="width:44px;height:10px;margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="sk-bottom-nav">
+    <div class="sk-nav-item" style="--d:0s">
+      <div class="sk-s sk-c" style="width:28px;height:28px;"></div>
+      <div class="sk-s sk-r6" style="width:38px;height:10px;"></div>
+    </div>
+    <div class="sk-nav-item" style="--d:.07s">
+      <div class="sk-s sk-c" style="width:28px;height:28px;"></div>
+      <div class="sk-s sk-r6" style="width:38px;height:10px;"></div>
+    </div>
+    <div class="sk-nav-item" style="--d:.14s">
+      <div class="sk-s sk-c" style="width:28px;height:28px;"></div>
+      <div class="sk-s sk-r6" style="width:38px;height:10px;"></div>
+    </div>
+    <div class="sk-nav-item" style="--d:.21s">
+      <div class="sk-s sk-c" style="width:28px;height:28px;"></div>
+      <div class="sk-s sk-r6" style="width:38px;height:10px;"></div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">
+<div class="check">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M20 6L9 17l-5-5"/>
+</svg>
+</div>
+<span id="toastMessage">✅ عملیات با موفقیت انجام شد</span>
+</div>
+ 
+<!-- ===== MAIN APP (TAB: PROFILE) ===== -->
+<div class="tab-content active" id="tab-profile">
+<div class="screen">
+ 
+<!-- Header -->
+<div class="header">
+<div class="header-icons">
+<div class="icon-btn theme-toggle" id="themeToggle">
+<svg class="ico ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
+</svg>
+<svg class="ico ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="4.5"/>
+<path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+</svg>
+</div>
+<div class="icon-btn refresh-btn" id="refreshBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+<path d="M21 4v4h-4"/>
+<path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+<path d="M3 20v-4h4"/>
+</svg>
+</div>
+</div>
+<div class="header-title">
+<h1 id="userNameDisplay">بارگذاری...</h1>
+<p>خوش آمدید</p>
+</div>
+</div>
+ 
+<!-- Wallet Card -->
+<div class="wallet-card refreshable" id="walletCard">
+<div class="wallet-top">
+<div class="avatar-slot" id="avatarSlot">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="8" r="3.4"/>
+<path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4"/>
+</svg>
+</div>
+<div class="wallet-name" id="walletName">بارگذاری...</div>
+<div class="wallet-arrow" id="walletArrow">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M9 18l6-6-6-6"/>
+</svg>
+</div>
+</div>
+<div class="wallet-balance-label">موجودی کیف پول</div>
+<div class="wallet-balance-row">
+<div class="wallet-balance-amount" id="balanceDisplay" dir="ltr">۰</div>
+<div class="wallet-ticker">
+<span class="ticker-label">RAKT</span>
+</div>
+</div>
+<hr class="wallet-divider">
+<div class="wallet-bottom">
+<div class="wallet-date">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="4" width="18" height="18" rx="2"/>
+<path d="M16 2v4M8 2v4M3 10h18"/>
+</svg>
+<span id="dateDisplay">در حال بارگذاری...</span>
+</div>
+</div>
+</div>
+ 
+<!-- Info Cards -->
+<div class="info-row">
+<div class="info-card refreshable">
+<div class="corner-icon" id="shareBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="18" cy="5" r="3"/>
+<circle cx="6" cy="12" r="3"/>
+<circle cx="18" cy="19" r="3"/>
+<path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>
+</svg>
+</div>
+<div class="badge-icon purple">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+<rect x="4" y="3" width="16" height="18" rx="3"/>
+<rect x="9" y="2" width="6" height="3" rx="1"/>
+<circle cx="12" cy="11" r="2.3"/>
+<path d="M8 17c.7-1.7 2.2-2.6 4-2.6s3.3.9 4 2.6"/>
+</svg>
+</div>
+<div class="label">اشتراک‌گذاری</div>
+<div class="value">اطلاعات حساب</div>
+</div>
+<div class="info-card refreshable">
+<div class="corner-icon" id="copyBtn" title="کپی شناسه عددی">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<rect x="9" y="9" width="13" height="13" rx="2.5"/>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+</svg>
+</div>
+<div class="badge-icon blue">
+<span class="hash">#</span>
+</div>
+<div class="label">شناسه عددی</div>
+<div class="value" id="idValue">---</div>
+</div>
+</div>
+ 
+<!-- Invite Banner -->
+<div class="invite-banner" id="inviteBanner">
+<div class="chevron-circle">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M15 18l-6-6 6-6"/>
+</svg>
+</div>
+<div class="invite-text">
+<div class="title">دعوت از دوستان</div>
+<div class="subtitle">راکت رایگان دریافت کنید</div>
+</div>
+<div class="yellow-btn" id="inviteBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="18" cy="5" r="3"/>
+<circle cx="6" cy="12" r="3"/>
+<circle cx="18" cy="19" r="3"/>
+<path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>
+</svg>
+</div>
+</div>
+ 
+<!-- Quick Menu -->
+<div class="quick-menu">
+<div class="quick-item" id="quickOrders">
+<div class="quick-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="3" y="4" width="18" height="18" rx="2"/>
+<path d="M16 2v4M8 2v4M3 10h18"/>
+<path d="M8 14h.01M12 14h.01M16 14h.01"/>
+</svg>
+</div>
+<span>سفارشات من</span>
+</div>
+<div class="quick-item" id="quickSubs">
+<div class="quick-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+<circle cx="9" cy="7" r="4"/>
+<path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+<path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+</svg>
+</div>
+<span>زیرمجموعه‌ها</span>
+</div>
+<div class="quick-item" id="quickFaq">
+<div class="quick-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="12" cy="12" r="10"/>
+<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+<path d="M12 17h.01"/>
+</svg>
+</div>
+<span>سوالات متداول</span>
+</div>
+<div class="quick-item" id="quickSupport">
+<div class="quick-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+<path d="M8 10h.01M12 10h.01M16 10h.01"/>
+</svg>
+</div>
+<span>پشتیبانی آنلاین</span>
+</div>
+</div>
+ 
+<!-- Footer -->
+<div class="footer">
+<div class="footer-box" id="footerBox">
+<span class="footer-dev">طراحی و توسعه توسط</span>
+<span class="footer-brand">< 𝘼𝘽𝙊𝙇𝙁𝘼𝙕𝙇 /></span>
+</div>
+</div>
+ 
+</div>
+</div>
+ 
+<!-- ===== TAB: ORDER ===== -->
+<div class="tab-content" id="tab-order">
+<div class="order-placeholder">
+  <h1 class="page-title">ثبت سفارش</h1>
+  <p class="page-subtitle">سرویس مورد نظر خود را برای شروع انتخاب کنید</p>
+
+  <div class="section-label">
+    <span>خدمات پایه</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+      <line x1="12" y1="22.08" x2="12" y2="12"/>
+    </svg>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card card-reaction" id="card-reaction" onclick="selectCard('reaction')" role="button" tabindex="0" aria-pressed="false">
+      <div class="icon-wrap">
+        <div class="icon-reaction">
+          <svg viewBox="15 10 260 265" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .s { fill: none; stroke: #ffffff; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+                .dot { fill: #ffffff; stroke: none; }
+                .bubble { fill: none; stroke: #ffffff; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+              </style>
+            </defs>
+            <path class="bubble" d="M 70,22 C 40,22 28,34 28,58 L 28,192 C 28,216 40,228 70,228 L 84,228 L 72,256 L 108,228 L 218,228 C 248,228 260,216 260,192 L 260,58 C 260,34 248,22 218,22 Z"/>
+            <circle class="s" cx="144" cy="125" r="72"/>
+            <ellipse class="dot" cx="118" cy="108" rx="10" ry="12"/>
+            <ellipse class="dot" cx="170" cy="108" rx="10" ry="12"/>
+            <path class="s" d="M 105,135 C 118,175 170,175 183,135"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-title">ری‌اکشن پست</div>
+      <span class="badge badge-reaction">Reaction</span>
+    </div>
+
+    <div class="card card-blue" id="card-view" onclick="selectCard('view')" role="button" tabindex="0" aria-pressed="false">
+      <div class="icon-wrap">
+        <div class="icon-view">
+          <svg viewBox="15 10 260 265" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .s { fill: none; stroke: #ffffff; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+                .dot { fill: #ffffff; stroke: none; }
+                .bubble { fill: none; stroke: #ffffff; stroke-width: 10; stroke-linecap: round; stroke-linejoin: round; }
+                .eye-highlight { fill: rgba(255,255,255,0.25); stroke: none; }
+              </style>
+            </defs>
+            <path class="bubble" d="M 70,22 C 40,22 28,34 28,58 L 28,192 C 28,216 40,228 70,228 L 84,228 L 72,256 L 108,228 L 218,228 C 248,228 260,216 260,192 L 260,58 C 260,34 248,22 218,22 Z"/>
+            <ellipse class="s" cx="144" cy="125" rx="48" ry="36"/>
+            <circle class="s" cx="144" cy="125" r="20"/>
+            <circle class="dot" cx="144" cy="125" r="10"/>
+            <ellipse class="eye-highlight" cx="137" cy="117" rx="7" ry="5" transform="rotate(-20 137 117)"/>
+            <ellipse class="eye-highlight" cx="153" cy="133" rx="3.5" ry="2.5" transform="rotate(30 153 133)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-title">بازدید پست</div>
+      <span class="badge badge-blue">View</span>
+    </div>
+  </div>
+
+  <div class="footer-deco">
+    <div class="line"></div>
+    <div class="dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="text">✦ SMM ✦</div>
+  </div>
+</div>
+</div>
+ 
+<!-- ===== TAB: TRANSFER ===== -->
+<div class="tab-content" id="tab-transfer">
+<div class="placeholder-page">
+  <div class="placeholder-icon" style="background:linear-gradient(140deg,var(--blue-1),var(--blue-2));box-shadow:0 4px 24px rgba(79,134,217,.3);">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#cfe1ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+  </div>
+  <div class="placeholder-title">انتقال راکت</div>
+  <div class="placeholder-sub">بزودی این بخش فعال می‌شود</div>
+  <div class="placeholder-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    به زودی
+  </div>
+</div>
+</div>
+ 
+<!-- ===== TAB: SERVICES ===== -->
+<div class="tab-content" id="tab-services">
+<div class="placeholder-page">
+  <div class="placeholder-icon" style="background:linear-gradient(140deg,var(--yellow-1),var(--yellow-2));box-shadow:0 4px 24px rgba(245,196,0,.3);">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#231a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2.5"/><rect x="14" y="3" width="7" height="7" rx="2.5"/><rect x="14" y="14" width="7" height="7" rx="2.5"/><rect x="3" y="14" width="7" height="7" rx="2.5"/></svg>
+  </div>
+  <div class="placeholder-title">خدمات</div>
+  <div class="placeholder-sub">بزودی این بخش فعال می‌شود</div>
+  <div class="placeholder-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    به زودی
+  </div>
+</div>
+</div>
+ 
+<!-- ===== INVITE SHEET ===== -->
+<div class="invite-sheet-overlay" id="inviteSheetOverlay"></div>
+<div class="invite-sheet" id="inviteSheet">
+<div class="invite-sheet-handle"></div>
+<div class="invite-sheet-title">اشتراک گذاری لینک دعوت</div>
+<div class="invite-sheet-subtitle">لینک دعوت خود را با دوستان خود به اشتراک بگذارید</div>
+<div class="invite-link-box">
+<span id="inviteLinkDisplay">در حال بارگذاری...</span>
+<button class="copy-link-btn" id="copyLinkBtn">کپی لینک</button>
+</div>
+<div class="invite-buttons">
+<button class="invite-btn telegram" id="shareTelegramBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+</svg>
+ارسال به تلگرام
+</button>
+<button class="invite-btn copy-text" id="copyInviteTextBtn">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<rect x="9" y="9" width="13" height="13" rx="2.5"/>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+</svg>
+کپی متن دعوت
+</button>
+</div>
+<button class="invite-sheet-close" id="inviteSheetClose">بستن</button>
+</div>
+ 
+<!-- ===== ABOUT SHEET ===== -->
+<div class="bottom-sheet-overlay" id="bottomSheetOverlay"></div>
+<div class="bottom-sheet" id="bottomSheet">
+  <div class="sheet-drag-area" id="sheetDragArea">
+    <div class="sheet-handle" id="sheetHandle"></div>
+    <div class="sheet-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M5.5 20c1.5-3.5 4-5.5 6.5-5.5s5 2 6.5 5.5"/>
+      </svg>
+    </div>
+    <h2 class="sheet-name">< 𝘼𝘽𝙊𝙇𝙁𝘼𝙕𝙇 /></h2>
+    <p class="sheet-username">@Ai_MiXoN</p>
+  </div>
+  <div class="sheet-divider"></div>
+  <p class="sheet-desc">طراحی و پیاده‌سازی انواع مینی‌اپ‌های تلگرامی، وب‌سایت و ربات‌های پیشرفته با بالاترین کیفیت و رابط کاربری مدرن.</p>
+  <p class="sheet-desc" style="margin-bottom:18px;">برای سفارش پروژه اختصاصی خود یا دریافت مشاوره می‌توانید از طریق دکمه زیر با من در ارتباط باشید.</p>
+  <button class="sheet-btn" id="sheetContactBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    ارتباط با توسعه‌دهنده
+  </button>
+</div>
+ 
+<!-- ===== SUPPORT SHEET ===== -->
+<div class="support-overlay" id="supportOverlay"></div>
+<div class="support-sheet" id="supportSheet">
+  <div class="support-header" id="supportHeader">
+    <div class="support-close" id="supportClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </div>
+    <div class="support-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <path d="M8 10h.01M12 10h.01M16 10h.01"/>
+      </svg>
+      <span>مرکز پشتیبانی</span>
+    </div>
+  </div>
+  <p class="support-subtitle">به چه نوع کمکی نیاز دارید؟</p>
+  <div class="support-options">
+    <div class="support-item" id="supportTech">
+      <div class="support-icon" style="background:linear-gradient(140deg, #4f86d9, #0c1c44);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+          <path d="M12 17h.01"/>
+        </svg>
+      </div>
+      <div class="support-info">
+        <span class="support-label">پشتیبانی فنی</span>
+        <span class="support-desc">مشکلات ربات، باگ و پیشنهادات</span>
+      </div>
+      <div class="support-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+    </div>
+    <div class="support-item" id="supportOrder">
+      <div class="support-icon" style="background:linear-gradient(140deg, #8a4fc9, #3a1652);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+          <path d="M8 14h.01M12 14h.01M16 14h.01"/>
+        </svg>
+      </div>
+      <div class="support-info">
+        <span class="support-label">پشتیبانی سفارش</span>
+        <span class="support-desc">پیگیری وضعیت سفارشات و مالی</span>
+      </div>
+      <div class="support-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ===== ORDERS OVERLAY ===== -->
+<div class="orders-overlay" id="ordersOverlay">
+<div class="orders-page">
+  <div class="orders-header">
+    <div class="orders-back" id="ordersBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <div class="orders-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <path d="M16 2v4M8 2v4M3 10h18"/>
+      </svg>
+      <span>لیست سفارشات</span>
+    </div>
+    <div style="width:40px;"></div>
+  </div>
+  <div class="orders-subtitle">مدیریت و پیگیری سفارشات ثبت شده</div>
+  <div class="orders-search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" placeholder="جستجو (لینک، تاریخ، شناسه)" id="ordersSearchInput">
+  </div>
+  <div class="orders-filter" id="ordersFilter">
+    <button class="filter-btn active" data-filter="all">همه</button>
+    <button class="filter-btn" data-filter="pending">در انتظار</button>
+    <button class="filter-btn" data-filter="processing">در حال پردازش</button>
+    <button class="filter-btn" data-filter="completed">تکمیل شده</button>
+  </div>
+  <div id="ordersList"></div>
+  <div class="empty-orders" id="emptyOrders" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01"/>
+    </svg>
+    <h3>سفارشی یافت نشد</h3>
+    <p>هیچ سفارشی با این شرایط وجود ندارد</p>
+  </div>
+</div>
+</div>
+ 
+<!-- ===== FAQ OVERLAY ===== -->
+<div class="faq-overlay" id="faqOverlay">
+<div class="faq-page">
+  <div class="faq-header">
+    <div class="faq-back" id="faqBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <div class="faq-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <path d="M12 17h.01"/>
+      </svg>
+      <span>سوالات متداول</span>
+    </div>
+    <div style="width:40px;"></div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="0">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>
+        <span class="faq-question">راکت چیست؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>راکت واحد ارز داخلی ربات است. هر راکت معادل یک بازدید (View) و هر ۴۵ راکت معادل یک واکنش (Reaction) محاسبه می‌شود.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="1">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16M20 4v16H4"/><path d="M8 9h8M8 13h6M8 17h4"/></svg></span>
+        <span class="faq-question">نحوه دریافت راکت چگونه است؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>شما می‌توانید از طریق دعوت دوستان، دریافت جوایز روزانه و کدهای هدیه، راکت رایگان کسب کنید.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="2">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        <span class="faq-question">حداقل میزان سفارش چقدر است؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>حداقل میزان ثبت سفارش برای بازدید ۱۰۰ عدد و برای رایکشن ۲۰ عدد می‌باشد.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="3">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <span class="faq-question">انجام سفارشات چقدر زمان می‌برد؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>فرآیند استارت سفارشات معمولاً بین ۳۰ دقیقه پس از ثبت آغاز می‌شود.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="4">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+        <span class="faq-question">چرا پاداش زیرمجموعه‌گیری واریز نشد؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>برای دریافت پاداش، زیرمجموعه شما پس از استارت ربات باید حتماً در کانال اطلاع‌رسانی عضو شده و سپس دکمه «عضو شدم» را در ربات لمس کند.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="5">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <span class="faq-question">بازدید واریزی بیشتر از سفارش است؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>در حال حاضر به دلیل نوسانات سیستمی، ممکن است تعداد بازدیدها کمی بیشتر از مقدار سفارش داده شده واریز شود.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="6">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <span class="faq-question">کیفیت بازدیدها چگونه است؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>بازدیدهای ربات سین‌یار کاملاً ایرانی و فارسی بوده و تأثیر مثبتی بر روی سئو و آمارهای کانال شما خواهد داشت.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-item-header" data-index="7">
+        <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 22v-4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M22 12h-4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+        <span class="faq-question">دلیل کندی سرعت واریز؟</span>
+        <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      </div>
+      <div class="faq-answer"><p>از آنجا که بازدیدها واقعی و غیرفیک هستند، سرعت واریز به ترافیک شبکه بستگی دارد.</p></div>
+    </div>
+  </div>
+  <div class="faq-support" id="faqSupportBtn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span>پشتیبانی در تلگرام</span>
+  </div>
+</div>
+</div>
+ 
+<!-- ===== SUBS OVERLAY ===== -->
+<div class="subs-overlay" id="subsOverlay">
+<div class="subs-page">
+  <div class="subs-header">
+    <div class="subs-back" id="subsBack">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+    </div>
+    <div class="subs-title">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      <span>زیرمجموعه‌ها</span>
+    </div>
+    <div style="width:40px;"></div>
+  </div>
+  <div class="subs-stats">
+    <div class="subs-stat-card">
+      <div class="stat-number" id="subsTotal">۰</div>
+      <div class="stat-label">کل زیرمجموعه</div>
+    </div>
+    <div class="subs-stat-card">
+      <div class="stat-number" id="subsActive">۰</div>
+      <div class="stat-label">فعال</div>
+    </div>
+    <div class="subs-stat-card">
+      <div class="stat-number" id="subsPending">۰</div>
+      <div class="stat-label">در انتظار</div>
+    </div>
+  </div>
+  <div class="subs-list" id="subsList"></div>
+  <div class="subs-empty" id="subsEmpty" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+    <h3>زیرمجموعه‌ای وجود ندارد</h3>
+    <p>هنوز هیچ کاربری با دعوت شما عضو نشده است</p>
+  </div>
+</div>
+</div>
+ 
+<!-- ===== BOTTOM NAVIGATION ===== -->
+<div class="bottom-nav">
+  <div class="box-indicator" id="boxIndicator"></div>
+ 
+  <div class="nav-item" id="defaultProfile" data-tab="tab-profile" onclick="moveBox(this)">
+    <svg viewBox="0 0 24 24">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4.5"></circle>
+    </svg>
+    <span>پروفایل</span>
+  </div>
+  <div class="nav-item" data-tab="tab-order" onclick="moveBox(this)">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 8v8"></path>
+      <path d="M8 12h8"></path>
+    </svg>
+    <span>سفارش</span>
+  </div>
+  <div class="nav-item" data-tab="tab-transfer" onclick="moveBox(this)">
+    <svg viewBox="0 0 24 24">
+      <path d="M7 16V4m0 0L3 8m4-4l4 4"></path>
+      <path d="M17 8v12m0 0l4-4m-4 4l-4-4"></path>
+    </svg>
+    <span>انتقال</span>
+  </div>
+  <div class="nav-item" data-tab="tab-services" onclick="moveBox(this)">
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="7" rx="2.5"></rect>
+      <rect x="14" y="3" width="7" height="7" rx="2.5"></rect>
+      <rect x="14" y="14" width="7" height="7" rx="2.5"></rect>
+      <rect x="3" y="14" width="7" height="7" rx="2.5"></rect>
+    </svg>
+    <span>خدمات</span>
+  </div>
+</div>
+ 
+<script>
+// ===== تنظیمات =====
+const API_BASE = 'https://your-domain.com/api';  // ← آدرس سرور API خودت رو بذار
+
+// ===== SKELETON =====
+const skeletonLoader = document.getElementById('skeletonLoader');
+function showSkeleton(){ skeletonLoader.classList.remove('sk-hide'); }
+function hideSkeleton(){ skeletonLoader.classList.add('sk-hide'); }
+
+// ===== TOAST =====
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+let toastTimer = null;
+function showToast(msg) {
+    if (msg) toastMessage.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+}
+
+// ===== COPY =====
+async function copyText(text) {
+    try { await navigator.clipboard.writeText(text); return true; } catch(e) {
+        try { const ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); return true; } catch(e2){ return false; }
+    }
+}
+
+// ===== دریافت اطلاعات کاربر از تلگرام WebApp =====
+function getTelegramUser() {
+    if (window.Telegram && window.Telegram.WebApp) {
+        const user = window.Telegram.WebApp.initDataUnsafe.user;
+        if (user) {
+            return {
+                id: user.id,
+                first_name: user.first_name || 'کاربر',
+                last_name: user.last_name || '',
+                username: user.username || ''
+            };
+        }
+    }
+    return null;
+}
+
+// ===== بارگذاری کامل اطلاعات از دیتابیس =====
+async function loadUserData() {
+    const tgUser = getTelegramUser();
+    let userId = tgUser ? tgUser.id : parseInt(localStorage.getItem('userId')) || 6880898571;
+    let firstName = tgUser ? tgUser.first_name : localStorage.getItem('userName') || 'کاربر';
+    
+    showSkeleton();
+    
+    try {
+        // دریافت اطلاعات کاربر از دیتابیس
+        const response = await fetch(`${API_BASE}/user/${userId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const user = data.data;
+            
+            // ذخیره در localStorage
+            localStorage.setItem('userId', user.user_id);
+            localStorage.setItem('userName', user.first_name || firstName);
+            
+            // ===== به‌روزرسانی نام =====
+            document.getElementById('userNameDisplay').textContent = user.first_name || firstName;
+            document.getElementById('walletName').textContent = user.first_name || firstName;
+            
+            // ===== به‌روزرسانی موجودی =====
+            document.getElementById('balanceDisplay').textContent = Number(user.coins || 0).toLocaleString();
+            
+            // ===== به‌روزرسانی شناسه عددی =====
+            document.getElementById('idValue').textContent = user.user_id;
+            
+            // ===== به‌روزرسانی تاریخ =====
+            const now = new Date();
+            document.getElementById('dateDisplay').textContent = now.toLocaleDateString('fa-IR');
+            
+            // ===== به‌روزرسانی لینک دعوت =====
+            const botUsername = 'SeenYarBot';
+            const inviteLink = `https://t.me/${botUsername}?start=${user.user_id}`;
+            document.getElementById('inviteLinkDisplay').textContent = inviteLink;
+        }
+        
+        // دریافت سفارشات
+        await loadOrders(userId);
+        
+        // دریافت زیرمجموعه‌ها
+        await loadInvites(userId);
+        
+    } catch (error) {
+        console.error('❌ خطا:', error);
+        showToast('⚠️ خطا در اتصال به سرور');
+    } finally {
+        setTimeout(hideSkeleton, 400);
+    }
+}
+
+// ===== بارگذاری سفارشات =====
+async function loadOrders(userId, status = 'all') {
+    try {
+        const response = await fetch(`${API_BASE}/user/${userId}/orders?status=${status}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const ordersList = document.getElementById('ordersList');
+            const emptyOrders = document.getElementById('emptyOrders');
+            
+            if (!data.data || data.data.length === 0) {
+                ordersList.style.display = 'none';
+                emptyOrders.style.display = 'block';
+                return;
+            }
+            
+            ordersList.style.display = 'block';
+            emptyOrders.style.display = 'none';
+            ordersList.innerHTML = '';
+            
+            const statusMap = {
+                'pending': { text: 'در انتظار', class: 'pending' },
+                'processing': { text: 'در حال پردازش', class: 'processing' },
+                'completed': { text: 'تکمیل شده', class: 'completed' },
+                'cancelled': { text: 'لغو شده', class: 'cancelled' }
+            };
+            
+            const typeMap = {
+                'view': 'بازدید',
+                'reaction': 'ریکشن',
+                'stars_post': 'استارز پست',
+                'stars_account': 'استارز اکانت'
+            };
+            
+            data.data.forEach(order => {
+                const statusInfo = statusMap[order.status] || statusMap['pending'];
+                const typeName = typeMap[order.order_type] || order.order_type;
+                
+                const card = document.createElement('div');
+                card.className = 'order-card';
+                card.dataset.status = order.status;
+                card.innerHTML = `
+                    <div class="order-card-top">
+                        <div class="order-id">#<span>${order.order_code || '---'}</span></div>
+                        <div class="order-status ${statusInfo.class}"><span>●</span> ${statusInfo.text}</div>
+                    </div>
+                    <div class="order-card-middle">
+                        <div class="order-product">
+                            <div class="order-product-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v8M8 12h8"/>
+                                </svg>
+                            </div>
+                            <div class="order-product-info">
+                                <span class="order-product-name">${typeName}</span>
+                                <span class="order-product-desc">${order.quantity || 0} عدد</span>
+                            </div>
+                        </div>
+                        <div class="order-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">${(order.quantity || 0).toLocaleString()}</span>
+                                <span class="stat-label">تعداد</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-card-bottom">
+                        <div class="order-date">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+                            </svg>
+                            ${order.date ? order.date.slice(0, 10).replace(/-/g, '/') : '---'}
+                        </div>
+                        <div class="order-rakt">${statusInfo.text === 'تکمیل شده' ? '✅' : '⏳'}</div>
+                    </div>
+                `;
+                ordersList.appendChild(card);
+            });
+        }
+    } catch (error) {
+        console.error('❌ خطا در بارگذاری سفارشات:', error);
+    }
+}
+
+// ===== بارگذاری زیرمجموعه‌ها =====
+async function loadInvites(userId) {
+    try {
+        const response = await fetch(`${API_BASE}/user/${userId}/invites`);
+        const data = await response.json();
+        
+        if (data.success) {
+            document.getElementById('subsTotal').textContent = data.total || 0;
+            document.getElementById('subsActive').textContent = data.stats?.completed || 0;
+            document.getElementById('subsPending').textContent = data.stats?.pending || 0;
+            
+            const list = document.getElementById('subsList');
+            const empty = document.getElementById('subsEmpty');
+            
+            if (!data.data || data.data.length === 0) {
+                list.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+            
+            list.style.display = 'block';
+            empty.style.display = 'none';
+            list.innerHTML = '';
+            
+            const statusMap = {
+                'pending': { text: 'در انتظار', class: 'pending' },
+                'completed': { text: 'فعال', class: 'active' },
+                'inactive': { text: 'غیرفعال', class: 'inactive' }
+            };
+            
+            data.data.forEach(invite => {
+                const statusInfo = statusMap[invite.status] || statusMap['pending'];
+                const name = invite.first_name || invite.username || 'کاربر ناشناس';
+                const date = invite.date ? invite.date.slice(0, 10).replace(/-/g, '/') : '---';
+                
+                const item = document.createElement('div');
+                item.className = 'subs-item';
+                item.innerHTML = `
+                    <div class="subs-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <div class="subs-info">
+                        <div class="subs-name">${name}</div>
+                        <div class="subs-detail">تاریخ دعوت: <span>${date}</span></div>
+                    </div>
+                    <span class="subs-badge ${statusInfo.class}">${statusInfo.text}</span>
+                `;
+                list.appendChild(item);
+            });
+        }
+    } catch (error) {
+        console.error('❌ خطا در بارگذاری زیرمجموعه‌ها:', error);
+    }
+}
+
+// ===== ثبت سفارش جدید =====
+async function createOrder(userId, orderType, quantity, targetLink) {
+    try {
+        const response = await fetch(`${API_BASE}/order/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user_id: userId,
+                order_type: orderType,
+                quantity: quantity,
+                target_link: targetLink
+            })
+        });
+        const data = await response.json();
+        if (data.success) {
+            showToast('✅ سفارش شما با موفقیت ثبت شد!');
+            setTimeout(() => loadUserData(), 500);
+        } else {
+            showToast('❌ ' + (data.error || 'خطا در ثبت سفارش'));
+        }
+        return data;
+    } catch (error) {
+        showToast('⚠️ خطا در اتصال به سرور');
+        return null;
+    }
+}
+
+// ===== توابع UI =====
+function popIt(el) {
+    if (!el) return;
+    el.style.transition = 'transform 0.15s ease';
+    el.style.transform = 'scale(0.92)';
+    setTimeout(() => { el.style.transform = 'scale(1)'; }, 150);
+    setTimeout(() => { el.style.transition = ''; }, 300);
+}
+
+var selected = null;
+function selectCard(id) {
+    var cards = {
+        reaction: document.getElementById('card-reaction'),
+        view: document.getElementById('card-view')
+    };
+    if (selected === id) {
+        cards[id].classList.remove('selected');
+        cards[id].setAttribute('aria-pressed', 'false');
+        selected = null;
+    } else {
+        Object.keys(cards).forEach(function(k) {
+            cards[k].classList.remove('selected');
+            cards[k].setAttribute('aria-pressed', 'false');
+        });
+        cards[id].classList.add('selected');
+        cards[id].setAttribute('aria-pressed', 'true');
+        selected = id;
+    }
+}
+
+function moveBox(element) {
+    const box = document.getElementById('boxIndicator');
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+    const rect = element.getBoundingClientRect();
+    const navRect = document.querySelector('.bottom-nav').getBoundingClientRect();
+    const leftPos = rect.left + rect.width / 2 - navRect.left;
+    const leftPercent = (leftPos / navRect.width) * 100;
+    box.style.left = leftPercent + '%';
+    box.classList.remove('glow');
+    void box.offsetWidth;
+    box.classList.add('glow');
+    const tabId = element.getAttribute('data-tab');
+    if (tabId) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        const targetTab = document.getElementById(tabId);
+        if (targetTab) targetTab.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+// ===== رویدادها =====
+document.addEventListener('DOMContentLoaded', function() {
+    // بارگذاری اولیه
+    loadUserData();
+    
+    // دکمه کپی شناسه
+    document.getElementById('copyBtn').addEventListener('click', async function() {
+        const idText = document.getElementById('idValue').textContent;
+        if (idText && idText !== '---') {
+            const ok = await copyText(idText);
+            if (ok) {
+                showToast('✅ شناسه عددی کپی شد!');
+                this.classList.add('copied');
+                setTimeout(() => this.classList.remove('copied'), 1000);
+            }
+        }
+    });
+    
+    // دکمه کپی لینک دعوت
+    document.getElementById('copyLinkBtn').addEventListener('click', async function() {
+        const link = document.getElementById('inviteLinkDisplay').textContent;
+        if (link && link !== 'در حال بارگذاری...') {
+            const ok = await copyText(link);
+            if (ok) {
+                showToast('✅ لینک دعوت کپی شد!');
+                this.textContent = '✅ کپی شد';
+                setTimeout(() => { this.textContent = 'کپی لینک'; }, 2000);
+            }
+        }
+    });
+    
+    // ثبت سفارش - ری‌اکشن
+    document.getElementById('card-reaction').addEventListener('click', function() {
+        if (selected === 'reaction') {
+            const userId = parseInt(localStorage.getItem('userId')) || 6880898571;
+            const quantity = prompt('تعداد ری‌اکشن مورد نظر را وارد کنید (حداقل 20):');
+            if (quantity && parseInt(quantity) >= 20) {
+                const targetLink = prompt('لینک پست مورد نظر را وارد کنید:');
+                if (targetLink) {
+                    createOrder(userId, 'reaction', parseInt(quantity), targetLink);
+                }
+            }
+        }
+    });
+    
+    // ثبت سفارش - بازدید
+    document.getElementById('card-view').addEventListener('click', function() {
+        if (selected === 'view') {
+            const userId = parseInt(localStorage.getItem('userId')) || 6880898571;
+            const quantity = prompt('تعداد بازدید مورد نظر را وارد کنید (حداقل 100):');
+            if (quantity && parseInt(quantity) >= 100) {
+                const targetLink = prompt('لینک پست مورد نظر را وارد کنید:');
+                if (targetLink) {
+                    createOrder(userId, 'view', parseInt(quantity), targetLink);
+                }
+            }
+        }
+    });
+    
+    // دکمه رفرش
+    document.getElementById('refreshBtn').addEventListener('click', function() {
+        if (this.classList.contains('spin')) return;
+        this.classList.add('spin');
+        loadUserData();
+        this.addEventListener('animationend', () => { this.classList.remove('spin'); }, { once: true });
+    });
+    
+    // دکمه‌های پشتیبانی
+    document.querySelectorAll('.support-item, .faq-support, #sheetContactBtn').forEach(el => {
+        el.addEventListener('click', function() {
+            window.open('https://t.me/Ai_MiXoN', '_blank');
+        });
+    });
+    
+    // منوهای مختلف
+    document.getElementById('quickOrders').addEventListener('click', function() {
+        document.getElementById('ordersOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        loadOrders(parseInt(localStorage.getItem('userId')) || 6880898571);
+    });
+    document.getElementById('ordersBack').addEventListener('click', function() {
+        document.getElementById('ordersOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    document.getElementById('quickSubs').addEventListener('click', function() {
+        document.getElementById('subsOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        loadInvites(parseInt(localStorage.getItem('userId')) || 6880898571);
+    });
+    document.getElementById('subsBack').addEventListener('click', function() {
+        document.getElementById('subsOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    document.getElementById('quickFaq').addEventListener('click', function() {
+        document.getElementById('faqOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('faqBack').addEventListener('click', function() {
+        document.getElementById('faqOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    });
+    
+    // فیلتر سفارشات
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const userId = parseInt(localStorage.getItem('userId')) || 6880898571;
+            loadOrders(userId, this.dataset.filter);
+        });
+    });
+    
+    // جستجوی سفارشات
+    document.getElementById('ordersSearchInput').addEventListener('input', function() {
+        const q = this.value.trim().toLowerCase();
+        const cards = document.querySelectorAll('.order-card');
+        let has = false;
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            if (text.includes(q)) { card.style.display = 'block'; has = true; }
+            else { card.style.display = 'none'; }
+        });
+        document.getElementById('emptyOrders').style.display = has ? 'none' : 'block';
+    });
+    
+    // INVITE SHEET
+    const inviteBanner = document.getElementById('inviteBanner');
+    const inviteBtn = document.getElementById('inviteBtn');
+    const inviteSheet = document.getElementById('inviteSheet');
+    const inviteSheetOverlay = document.getElementById('inviteSheetOverlay');
+    const inviteSheetClose = document.getElementById('inviteSheetClose');
+    
+    function openInviteSheet() {
+        inviteSheetOverlay.classList.add('active');
+        inviteSheet.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeInviteSheet() {
+        inviteSheetOverlay.classList.remove('active');
+        inviteSheet.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    inviteBanner.addEventListener('click', function(e) { if (e.target.closest('.yellow-btn')) return; popIt(this); openInviteSheet(); });
+    inviteBtn.addEventListener('click', function(e) { e.stopPropagation(); popIt(this); openInviteSheet(); });
+    inviteSheetClose.addEventListener('click', closeInviteSheet);
+    inviteSheetOverlay.addEventListener('click', function(e) { if (e.target === this) closeInviteSheet(); });
+    
+    // SHARE TO TELEGRAM
+    document.getElementById('shareTelegramBtn').addEventListener('click', function() {
+        const link = document.getElementById('inviteLinkDisplay').textContent;
+        if (link && link !== 'در حال بارگذاری...') {
+            const shareUrl = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent('به ربات سین‌یار بپیوندید! 🚀');
+            window.open(shareUrl, '_blank');
+            closeInviteSheet();
+        }
+    });
+    
+    // COPY INVITE TEXT
+    document.getElementById('copyInviteTextBtn').addEventListener('click', async function() {
+        const link = document.getElementById('inviteLinkDisplay').textContent;
+        if (link && link !== 'در حال بارگذاری...') {
+            const text = `به ربات سین‌یار خوش آمدید!\n\nبا استفاده از لینک زیر می‌توانید از ربات استفاده کنید:\n${link}\n\nبا دعوت دوستان خود راکت رایگان دریافت کنید! 🚀`;
+            const ok = await copyText(text);
+            if (ok) {
+                showToast('✅ متن دعوت کپی شد!');
+                this.querySelector('svg').style.color = '#34d77b';
+                setTimeout(() => { this.querySelector('svg').style.color = ''; }, 2000);
+            }
+        }
+    });
+    
+    // ABOUT SHEET
+    const footerBox = document.getElementById('footerBox');
+    const bottomSheet = document.getElementById('bottomSheet');
+    const bottomSheetOverlay = document.getElementById('bottomSheetOverlay');
+    const sheetContactBtn = document.getElementById('sheetContactBtn');
+    function openAbout() { bottomSheetOverlay.classList.add('active'); bottomSheet.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeAbout() { bottomSheetOverlay.classList.remove('active'); bottomSheet.classList.remove('active'); document.body.style.overflow = ''; bottomSheet.style.transform = ''; }
+    footerBox.addEventListener('click', function(){ popIt(this); openAbout(); });
+    bottomSheetOverlay.addEventListener('click', function(e){ if(e.target === this) closeAbout(); });
+    sheetContactBtn.addEventListener('click', function(){ window.open('https://t.me/Ai_MiXoN', '_blank'); closeAbout(); });
+    
+    // SUPPORT SHEET
+    const quickSupport = document.getElementById('quickSupport');
+    const supportOverlay = document.getElementById('supportOverlay');
+    const supportSheet = document.getElementById('supportSheet');
+    const supportClose = document.getElementById('supportClose');
+    function openSupport() { supportOverlay.classList.add('active'); supportSheet.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeSupport() { supportOverlay.classList.remove('active'); supportSheet.classList.remove('active'); document.body.style.overflow = ''; supportSheet.style.transform = ''; }
+    quickSupport.addEventListener('click', function(){ popIt(this); openSupport(); });
+    supportClose.addEventListener('click', closeSupport);
+    supportOverlay.addEventListener('click', function(e){ if(e.target === this) closeSupport(); });
+    
+    // THEME
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        popIt(this);
+        const html = document.documentElement;
+        const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+    });
+    
+    // DEFAULT NAV
+    setTimeout(() => { moveBox(document.getElementById('defaultProfile')); }, 150);
+});
+</script>
+ 
+</body>
+</html>
