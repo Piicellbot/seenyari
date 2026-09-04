@@ -1,4483 +1,605 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, height=device-height">
-<meta name="theme-color" content="#0a0a0a">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>سین‌یار | پنل کاربری</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html,
-body {
-  background: #0a0a0a;
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: 'Rubik', sans-serif;
-  display: flex;
-  justify-content: center;
-  color: #ffffff;
-  -webkit-user-select: none;
-  user-select: none;
-  -webkit-touch-callout: none;
-  min-height: 100vh;
-  min-height: 100dvh;
-  width: 100%;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  touch-action: manipulation;
-}
-
-body {
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 0;
-  margin: 0;
-  background: #0a0a0a;
-  overflow-x: hidden;
-  position: relative;
-}
-
-:root {
-  --yellow-1: #ffe066;
-  --yellow-2: #f5c400;
-  --purple-1: #6c3cb0;
-  --purple-2: #2d0f4a;
-  --blue-1: #4a7fd4;
-  --blue-2: #0a1a3a;
-  --green: #2ecc71;
-  --red: #e74c3c;
-  --orange: #f39c12;
-  --bg: #0a0a0a;
-  --page-text: #ffffff;
-  --card-white: #1a1a1a;
-  --card-white-text: #ffffff;
-  --card-surface: #141414;
-  --card-surface-border: #2a2a2a;
-  --text-muted: #888888;
-  --text-soft: #aaaaaa;
-  --pill-bg: #2a2a2a;
-  --pill-text: #ffffff;
-  --circle-bg: #2a2a2a;
-  --divider: #2a2a2a;
-  --header-icon: #ffffff;
-  --accent-color: rgba(108, 60, 176, 0.2);
-  --accent-glow: rgba(108, 60, 176, 0.1);
-  --nav-bg-top: rgba(10, 10, 10, 0.96);
-  --nav-bg-bottom: rgba(5, 5, 5, 0.98);
-  --nav-border-mid: rgba(255, 255, 255, 0.1);
-  --nav-border-edge: rgba(255, 255, 255, 0.02);
-  --nav-inactive: #555555;
-  --nav-active: #ffffff;
-  --nav-active-shadow: rgba(255, 255, 255, 0.05);
-  --nav-active-line: #6c3cb0;
-  --nav-box-bg: rgba(255, 255, 255, 0.02);
-  --nav-box-border: rgba(255, 255, 255, 0.02);
-  --nav-outer-shadow: 0 -6px 30px rgba(0, 0, 0, 0.9);
-  --sk-bg: #0a0a0a;
-  --sk-base: #1a1a1a;
-  --sk-shine: #2a2a2a;
-  --sk-card-bg: #141414;
-  --sk-nav-bg: #0a0a0a;
-}
-
-.screen {
-  width: 100%;
-  max-width: 400px;
-  padding: 14px 14px 120px;
-  position: relative;
-  margin: 0 auto;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes floatGlow {
-  0% {
-    transform: translateY(0px);
-    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.1));
-  }
-  50% {
-    transform: translateY(-3px);
-    filter: drop-shadow(0 0 24px rgba(255, 215, 0, 0.2));
-  }
-  100% {
-    transform: translateY(0px);
-    filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.1));
-  }
-}
-
-@keyframes navShimmer {
-  0% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.4;
-  }
-}
-
-@keyframes spin720 {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes dotFloat {
-  0% {
-    transform: translateY(0);
-    opacity: 0.12;
-  }
-  50% {
-    transform: translateY(-3px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 0.12;
-  }
-}
-
-@keyframes navSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes toastSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.92);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-}
-
-@keyframes toastSlideOut {
-  0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px) scale(0.92);
-  }
-}
-
-@keyframes toastProgress {
-  0% {
-    width: 100%;
-  }
-  100% {
-    width: 0%;
-  }
-}
-
-@keyframes checkmark {
-  0% {
-    transform: scale(0) rotate(-20deg);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2) rotate(5deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-@keyframes skShimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.anim-in {
-  animation: fadeInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  opacity: 0;
-}
-
-.anim-in-d1 {
-  animation-delay: 0.04s;
-}
-
-.anim-in-d2 {
-  animation-delay: 0.08s;
-}
-
-.anim-in-d3 {
-  animation-delay: 0.12s;
-}
-
-.anim-in-d4 {
-  animation-delay: 0.16s;
-}
-
-.anim-in-d5 {
-  animation-delay: 0.2s;
-}
-
-.toast-container {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 380px;
-  z-index: 10000;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.toast-item {
-  pointer-events: auto;
-  background: rgba(20, 20, 20, 0.95);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  animation: toastSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  direction: rtl;
-  min-height: 52px;
-  max-height: 60px;
-  position: relative;
-  overflow: hidden;
-}
-
-.toast-item.removing {
-  animation: toastSlideOut 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.toast-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.toast-icon.success {
-  background: rgba(46, 204, 113, 0.12);
-  border: 1px solid rgba(46, 204, 113, 0.15);
-}
-
-.toast-icon.success svg {
-  color: #2ecc71;
-}
-
-.toast-icon.error {
-  background: rgba(231, 76, 60, 0.12);
-  border: 1px solid rgba(231, 76, 60, 0.15);
-}
-
-.toast-icon.error svg {
-  color: #e74c3c;
-}
-
-.toast-icon.warning {
-  background: rgba(243, 156, 18, 0.12);
-  border: 1px solid rgba(243, 156, 18, 0.15);
-}
-
-.toast-icon.warning svg {
-  color: #f39c12;
-}
-
-.toast-icon.info {
-  background: rgba(74, 127, 212, 0.12);
-  border: 1px solid rgba(74, 127, 212, 0.15);
-}
-
-.toast-icon.info svg {
-  color: #4a7fd4;
-}
-
-.toast-icon svg {
-  width: 14px;
-  height: 14px;
-}
-
-.toast-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-}
-
-.toast-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: #ffffff;
-  direction: rtl;
-  line-height: 1.2;
-  font-family: 'Rubik', sans-serif;
-}
-
-.toast-message {
-  font-size: 10px;
-  font-weight: 500;
-  color: #aaaaaa;
-  direction: rtl;
-  line-height: 1.3;
-  font-family: 'Rubik', sans-serif;
-}
-
-.toast-progress {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  border-radius: 0 0 14px 14px;
-  background: linear-gradient(90deg, #6c3cb0, #4a7fd4);
-  animation: toastProgress 2.8s linear forwards;
-}
-
-.toast-item.success .toast-progress {
-  background: linear-gradient(90deg, #2ecc71, #1a9e5a);
-}
-
-.toast-item.error .toast-progress {
-  background: linear-gradient(90deg, #e74c3c, #cc4444);
-}
-
-.toast-item.warning .toast-progress {
-  background: linear-gradient(90deg, #f39c12, #e08a3a);
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 14px;
-  padding-top: 2px;
-  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.header-icons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.icon-btn {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  touch-action: manipulation;
-  position: relative;
-}
-
-.icon-btn:active {
-  transform: scale(0.78);
-}
-
-.icon-btn svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.theme-toggle {
-  position: relative;
-}
-
-.theme-toggle .ico {
-  position: absolute;
-  inset: 0;
-  transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.theme-toggle .ico-moon {
-  opacity: 1;
-  transform: rotate(0) scale(1);
-}
-
-.theme-toggle .ico-sun {
-  opacity: 0;
-  transform: rotate(-90deg) scale(0.4);
-}
-
-html[data-theme="light"] .theme-toggle .ico-moon {
-  opacity: 0;
-  transform: rotate(90deg) scale(0.4);
-}
-
-html[data-theme="light"] .theme-toggle .ico-sun {
-  opacity: 1;
-  transform: rotate(0) scale(1);
-}
-
-.refresh-btn.spin {
-  animation: spin720 0.6s cubic-bezier(0.5, 0, 0.3, 1);
-}
-
-.header-title {
-  text-align: right;
-  direction: rtl;
-}
-
-.header-title h1 {
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #ffffff 60%, rgba(255, 255, 255, 0.5));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: 'Rubik', sans-serif;
-}
-
-.header-title p {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  margin-top: 1px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.wallet-card {
-  background-color: #1a1a1a;
-  border-radius: 20px;
-  padding: 16px 14px 12px;
-  color: #ffffff;
-  margin-bottom: 12px;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #2a2a2a;
-  animation: fadeInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.wallet-card::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: -30%;
-  width: 160%;
-  height: 160%;
-  background: radial-gradient(ellipse at 20% 10%, rgba(108, 60, 176, 0.03) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.wallet-card:active {
-  transform: scale(0.98);
-}
-
-.wallet-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-.avatar-slot {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.avatar-slot svg {
-  width: 20px;
-  height: 20px;
-  color: #888888;
-}
-
-.wallet-name {
-  flex: 1;
-  text-align: center;
-  direction: ltr;
-  font-family: 'Rubik', sans-serif;
-  font-weight: 800;
-  font-size: 15px;
-  padding: 0 4px;
-  color: #ffffff;
-}
-
-.wallet-arrow {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.wallet-arrow:active {
-  transform: scale(0.78) rotate(-6deg);
-}
-
-.wallet-arrow svg {
-  width: 14px;
-  height: 14px;
-  color: #888888;
-}
-
-.wallet-balance-label {
-  margin-top: 12px;
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  text-align: right;
-  direction: rtl;
-  font-family: 'Rubik', sans-serif;
-}
-
-.wallet-balance-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 2px;
-}
-
-.wallet-balance-amount {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-  font-size: 20px;
-  color: #ffffff;
-  direction: ltr;
-  text-align: left;
-}
-
-.wallet-ticker {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.wallet-ticker span.ticker-label {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-  font-size: 18px;
-  background: linear-gradient(135deg, #ffe066, #f5c400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: 1px;
-  animation: floatGlow 3s ease-in-out infinite;
-}
-
-.wallet-divider {
-  border: none;
-  border-top: 1px solid #2a2a2a;
-  margin: 10px 0 8px;
-}
-
-.wallet-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 4px;
-  color: #888888;
-  font-size: 11px;
-  font-weight: 600;
-  font-family: 'Rubik', sans-serif;
-}
-
-.wallet-bottom .wallet-date {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'Rubik', sans-serif;
-  font-weight: 400;
-  font-size: 10px;
-  color: #888888;
-}
-
-.wallet-bottom .wallet-date svg {
-  width: 12px;
-  height: 12px;
-  color: #888888;
-}
-
-.info-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.info-card {
-  flex: 1;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 16px;
-  padding: 12px 10px;
-  position: relative;
-  min-height: 94px;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.info-card:active {
-  transform: scale(0.96);
-}
-
-.info-card .corner-icon {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888888;
-  border: none;
-  background: rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-  border-radius: 9px;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.corner-icon:active {
-  transform: scale(0.78);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.corner-icon svg {
-  width: 14px;
-  height: 14px;
-}
-
-#copyBtn.copied {
-  color: #2ecc71;
-  background: rgba(46, 204, 113, 0.08);
-}
-
-.info-card .badge-icon {
-  align-self: flex-end;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.badge-icon.purple {
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-}
-
-.badge-icon.purple svg {
-  width: 17px;
-  height: 17px;
-  color: #c9a0f0;
-}
-
-.badge-icon.blue {
-  background: linear-gradient(140deg, #4a7fd4, #0a1a3a);
-}
-
-.badge-icon.blue .hash {
-  font-family: 'Rubik', sans-serif;
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1;
-  color: #a0c4ff;
-}
-
-.info-card .label {
-  margin-top: auto;
-  font-size: 9px;
-  color: #888888;
-  font-weight: 500;
-  text-align: right;
-  direction: rtl;
-  font-family: 'Rubik', sans-serif;
-}
-
-.info-card .value {
-  margin-top: 3px;
-  font-size: 13px;
-  font-weight: 800;
-  color: #ffffff;
-  text-align: right;
-  font-family: 'Rubik', sans-serif;
-}
-
-.invite-banner {
-  background: #2a2a2a;
-  border-radius: 18px;
-  padding: 9px 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #ffffff;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  margin-bottom: 12px;
-  cursor: pointer;
-  touch-action: manipulation;
-  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.invite-banner:active {
-  transform: scale(0.96);
-}
-
-.invite-banner .chevron-circle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.invite-banner .chevron-circle:active {
-  transform: scale(0.8);
-}
-
-.invite-banner .chevron-circle svg {
-  width: 12px;
-  height: 12px;
-  color: #888888;
-}
-
-.invite-text {
-  flex: 1;
-  text-align: right;
-  direction: rtl;
-}
-
-.invite-text .title {
-  font-size: 13px;
-  font-weight: 800;
-  font-family: 'Rubik', sans-serif;
-}
-
-.invite-text .subtitle {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  margin-top: 1px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.invite-banner .yellow-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: linear-gradient(140deg, #ffe066, #f5c400);
-  box-shadow: 0 3px 14px rgba(245, 196, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.invite-banner .yellow-btn:active {
-  transform: scale(0.78);
-}
-
-.invite-banner .yellow-btn svg {
-  width: 16px;
-  height: 16px;
-  color: #1a1400;
-}
-
-.quick-menu {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.quick-item {
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 14px;
-  padding: 10px 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  touch-action: manipulation;
-  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.quick-item:active {
-  transform: scale(0.92);
-}
-
-.quick-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  box-shadow: 0 3px 12px rgba(108, 60, 176, 0.1);
-  flex-shrink: 0;
-}
-
-.quick-icon:active {
-  transform: scale(0.85);
-}
-
-.quick-icon svg {
-  width: 16px;
-  height: 16px;
-  color: #c9a0f0;
-}
-
-.quick-item:nth-child(2) .quick-icon {
-  background: linear-gradient(140deg, #4a7fd4, #0a1a3a);
-  box-shadow: 0 3px 12px rgba(74, 127, 212, 0.1);
-}
-
-.quick-item:nth-child(3) .quick-icon {
-  background: linear-gradient(140deg, #ffe066, #f5c400);
-  box-shadow: 0 3px 12px rgba(245, 196, 0, 0.1);
-}
-
-.quick-item:nth-child(3) .quick-icon svg {
-  color: #1a1400;
-}
-
-.quick-item:nth-child(4) .quick-icon {
-  background: linear-gradient(140deg, #2ecc71, #1a9e5a);
-  box-shadow: 0 3px 12px rgba(46, 204, 113, 0.1);
-}
-
-.quick-item span {
-  font-size: 9px;
-  font-weight: 600;
-  color: #ffffff;
-  text-align: center;
-  line-height: 1.2;
-  font-family: 'Rubik', sans-serif;
-}
-
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 0 4px;
-  border-top: 1px solid #2a2a2a;
-  margin-top: 2px;
-}
-
-.footer-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  direction: rtl;
-  font-size: 11px;
-  color: #888888;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 6px 12px;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
-}
-
-.footer-box:active {
-  transform: scale(0.92);
-}
-
-.footer-dev {
-  font-weight: 500;
-  color: #888888;
-  font-family: 'Rubik', sans-serif;
-}
-
-.footer-brand {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-  font-size: 12px;
-  background: linear-gradient(135deg, #ffe066, #f5c400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.sheet-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 9000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.sheet-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.sheet {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(100%);
-  width: 100%;
-  max-width: 400px;
-  background: rgba(14, 14, 14, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid #2a2a2a;
-  border-radius: 24px 24px 0 0;
-  padding: 16px 18px 22px;
-  z-index: 9001;
-  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.4);
-}
-
-.sheet.active {
-  transform: translateX(-50%) translateY(0);
-}
-
-.sheet-handle {
-  width: 40px;
-  height: 3.5px;
-  border-radius: 4px;
-  background: #888888;
-  margin: 0 auto 14px;
-  opacity: 0.25;
-}
-
-.sheet-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: #ffffff;
-  text-align: center;
-  margin-bottom: 3px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.sheet-subtitle {
-  font-size: 11px;
-  color: #888888;
-  text-align: center;
-  margin-bottom: 14px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.sheet-link-box {
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 8px 12px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-}
-
-.sheet-link-box:focus-within {
-  border-color: #6c3cb0;
-  box-shadow: 0 0 0 3px rgba(108, 60, 176, 0.06);
-}
-
-.sheet-link-box span {
-  font-size: 11px;
-  color: #aaaaaa;
-  direction: ltr;
-  text-align: left;
-  flex: 1;
-  word-break: break-all;
-  font-family: 'Rubik', sans-serif;
-  font-weight: 400;
-}
-
-.sheet-link-box .copy-btn {
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  border: none;
-  border-radius: 8px;
-  padding: 5px 10px;
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-  font-family: 'Rubik', sans-serif;
-}
-
-.sheet-link-box .copy-btn:active {
-  transform: scale(0.84);
-}
-
-.sheet-btns {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sheet-btn {
-  width: 100%;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 13px;
-  font-family: 'Rubik', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.sheet-btn:active {
-  transform: scale(0.94);
-}
-
-.sheet-btn.telegram {
-  background: linear-gradient(140deg, #4a7fd4, #0a1a3a);
-  color: #ffffff;
-  box-shadow: 0 3px 14px rgba(74, 127, 212, 0.12);
-}
-
-.sheet-btn.telegram svg {
-  width: 18px;
-  height: 18px;
-  color: #ffffff;
-}
-
-.sheet-btn.copy-text {
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  color: #ffffff;
-}
-
-.sheet-btn.copy-text svg {
-  width: 16px;
-  height: 16px;
-  color: #888888;
-}
-
-.sheet-close {
-  width: 100%;
-  padding: 8px;
-  border: none;
-  border-radius: 12px;
-  background: transparent;
-  color: #888888;
-  font-family: 'Rubik', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  margin-top: 2px;
-}
-
-.sheet-close:active {
-  transform: scale(0.92);
-  color: #ffffff;
-}
-
-.about-sheet .avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 8px;
-  box-shadow: 0 3px 20px rgba(108, 60, 176, 0.12);
-}
-
-.about-sheet .avatar svg {
-  width: 32px;
-  height: 32px;
-  color: #c9a0f0;
-}
-
-.about-sheet .name {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-  font-size: 17px;
-  background: linear-gradient(135deg, #ffe066, #f5c400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-align: center;
-  letter-spacing: 0.3px;
-  margin-bottom: 2px;
-}
-
-.about-sheet .username {
-  font-size: 12px;
-  color: #888888;
-  font-weight: 500;
-  text-align: center;
-  direction: ltr;
-  margin-bottom: 10px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.about-sheet .divider {
-  border: none;
-  border-top: 1px solid #2a2a2a;
-  margin: 0 0 12px 0;
-}
-
-.about-sheet .desc {
-  font-size: 11px;
-  color: #aaaaaa;
-  line-height: 1.7;
-  text-align: center;
-  direction: rtl;
-  margin-bottom: 12px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.about-sheet .contact-btn {
-  width: 100%;
-  padding: 10px 14px;
-  border: none;
-  border-radius: 13px;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 3px 14px rgba(108, 60, 176, 0.12);
-}
-
-.about-sheet .contact-btn:active {
-  transform: scale(0.94);
-}
-
-.about-sheet .contact-btn svg {
-  width: 18px;
-  height: 18px;
-  color: #c9a0f0;
-}
-
-.support-sheet .support-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.support-sheet .support-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 13px;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.support-sheet .support-item:active {
-  transform: scale(0.96);
-}
-
-.support-sheet .support-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.support-sheet .support-icon svg {
-  width: 16px;
-  height: 16px;
-  color: #c9a0f0;
-}
-
-.support-sheet .support-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  text-align: right;
-  direction: rtl;
-}
-
-.support-sheet .support-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.support-sheet .support-desc {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.support-sheet .support-arrow {
-  width: 22px;
-  height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888888;
-  flex-shrink: 0;
-}
-
-.support-sheet .support-item:active .support-arrow {
-  transform: translateX(-4px);
-}
-
-.support-sheet .support-arrow svg {
-  width: 14px;
-  height: 14px;
-}
-
-.orders-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0a0a0a;
-  z-index: 5000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.orders-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.orders-page {
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  height: 100dvh;
-  padding: 14px 14px 24px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  margin: 0 auto;
-}
-
-.orders-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.orders-back {
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #888888;
-}
-
-.orders-back:active {
-  transform: scale(0.82);
-}
-
-.orders-back svg {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
-}
-
-.orders-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 16px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.orders-title svg {
-  width: 22px;
-  height: 22px;
-  color: #6c3cb0;
-}
-
-.orders-subtitle {
-  font-size: 11px;
-  color: #888888;
-  font-weight: 500;
-  text-align: right;
-  direction: rtl;
-  margin-bottom: 12px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.orders-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 8px 12px;
-  margin-bottom: 12px;
-}
-
-.orders-search:focus-within {
-  border-color: #6c3cb0;
-  box-shadow: 0 0 0 3px rgba(108, 60, 176, 0.06);
-}
-
-.orders-search svg {
-  width: 16px;
-  height: 16px;
-  color: #888888;
-  flex-shrink: 0;
-}
-
-.orders-search input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  direction: rtl;
-}
-
-.orders-search input::placeholder {
-  color: #888888;
-  font-weight: 400;
-  font-size: 11px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.orders-filter {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 12px;
-  overflow-x: auto;
-  padding-bottom: 3px;
-}
-
-.orders-filter::-webkit-scrollbar {
-  height: 2px;
-}
-
-.orders-filter::-webkit-scrollbar-thumb {
-  background: #888888;
-  border-radius: 10px;
-}
-
-.filter-btn {
-  padding: 5px 12px;
-  border-radius: 14px;
-  border: 1px solid #2a2a2a;
-  background: #141414;
-  color: #888888;
-  font-family: 'Rubik', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-}
-
-.filter-btn:active {
-  transform: scale(0.92);
-}
-
-.filter-btn.active {
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  color: #ffffff;
-  border-color: #6c3cb0;
-  box-shadow: 0 3px 14px rgba(108, 60, 176, 0.12);
-}
-
-.order-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: default;
-  animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.order-card:active {
-  transform: scale(0.97);
-}
-
-.order-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.order-id {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  color: #ffffff;
-}
-
-.order-id span {
-  color: #888888;
-  font-weight: 500;
-}
-
-.order-status {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  padding: 2px 8px;
-  border-radius: 14px;
-  font-size: 9px;
-  font-weight: 700;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-status.pending {
-  background: rgba(243, 156, 18, 0.1);
-  color: #f39c12;
-}
-
-.order-status.processing {
-  background: rgba(74, 127, 212, 0.1);
-  color: #4a7fd4;
-}
-
-.order-status.completed {
-  background: rgba(46, 204, 113, 0.1);
-  color: #2ecc71;
-}
-
-.order-status.cancelled {
-  background: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
-}
-
-.order-card-middle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-.order-product {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.order-product-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.order-product-icon svg {
-  width: 17px;
-  height: 17px;
-  color: #c9a0f0;
-}
-
-.order-product-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.order-product-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-product-desc {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-stats {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.order-stats .stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.order-stats .stat-value {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 800;
-  font-size: 13px;
-  color: #ffffff;
-  direction: ltr;
-}
-
-.order-stats .stat-label {
-  font-size: 8px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 6px;
-  border-top: 1px solid #2a2a2a;
-}
-
-.order-date {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-date svg {
-  width: 11px;
-  height: 11px;
-}
-
-.order-rakt {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  background: linear-gradient(135deg, #ffe066, #f5c400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.empty-orders {
-  text-align: center;
-  padding: 32px 12px;
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.empty-orders svg {
-  width: 56px;
-  height: 56px;
-  color: #888888;
-  opacity: 0.1;
-  margin-bottom: 10px;
-}
-
-.empty-orders h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #888888;
-  margin-bottom: 3px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.empty-orders p {
-  font-size: 11px;
-  color: #888888;
-  opacity: 0.5;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0a0a0a;
-  z-index: 8000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.subs-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.subs-page {
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  height: 100dvh;
-  padding: 14px 14px 24px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  margin: 0 auto;
-}
-
-.subs-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.subs-back {
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #888888;
-}
-
-.subs-back:active {
-  transform: scale(0.82);
-}
-
-.subs-back svg {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
-}
-
-.subs-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 16px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-title svg {
-  width: 22px;
-  height: 22px;
-  color: #6c3cb0;
-}
-
-.subs-stats {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.subs-stat-card {
-  flex: 1;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 8px 6px;
-  text-align: center;
-}
-
-.subs-stat-card:active {
-  transform: scale(0.95);
-}
-
-.subs-stat-card .stat-number {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 900;
-  font-size: 17px;
-  color: #ffffff;
-}
-
-.subs-stat-card .stat-label {
-  font-size: 9px;
-  color: #888888;
-  font-weight: 500;
-  margin-top: 1px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.subs-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 8px 10px;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: default;
-  animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.subs-item:active {
-  transform: scale(0.97);
-}
-
-.subs-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.subs-avatar svg {
-  width: 16px;
-  height: 16px;
-  color: #c9a0f0;
-}
-
-.subs-info {
-  flex: 1;
-}
-
-.subs-info .subs-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-info .subs-detail {
-  font-size: 10px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-info .subs-detail span {
-  direction: ltr;
-  display: inline-block;
-}
-
-.subs-badge {
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 9px;
-  font-weight: 700;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-badge.active {
-  background: rgba(46, 204, 113, 0.1);
-  color: #2ecc71;
-}
-
-.subs-badge.inactive {
-  background: rgba(231, 76, 60, 0.1);
-  color: #e74c3c;
-}
-
-.subs-badge.pending {
-  background: rgba(243, 156, 18, 0.1);
-  color: #f39c12;
-}
-
-.subs-empty {
-  text-align: center;
-  padding: 40px 12px;
-  animation: fadeInUp 0.5s ease forwards;
-}
-
-.subs-empty svg {
-  width: 56px;
-  height: 56px;
-  color: #888888;
-  opacity: 0.1;
-  margin-bottom: 10px;
-}
-
-.subs-empty h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: #888888;
-  margin-bottom: 3px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.subs-empty p {
-  font-size: 11px;
-  color: #888888;
-  opacity: 0.5;
-  font-family: 'Rubik', sans-serif;
-}
-
-.faq-overlay {
-  position: fixed;
-  inset: 0;
-  background: #0a0a0a;
-  z-index: 7000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
-}
-
-.faq-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.faq-page {
-  width: 100%;
-  max-width: 400px;
-  height: 100vh;
-  height: 100dvh;
-  padding: 14px 14px 24px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  margin: 0 auto;
-}
-
-.faq-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.faq-back {
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  color: #888888;
-}
-
-.faq-back:active {
-  transform: scale(0.82);
-}
-
-.faq-back svg {
-  width: 18px;
-  height: 18px;
-  stroke: currentColor;
-}
-
-.faq-title {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 16px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.faq-title svg {
-  width: 22px;
-  height: 22px;
-  color: #6c3cb0;
-}
-
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-
-.faq-item {
-  background: #141414;
-  border: 1px solid #2a2a2a;
-  border-radius: 13px;
-  overflow: hidden;
-}
-
-.faq-item:active {
-  transform: scale(0.98);
-}
-
-.faq-item-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.faq-item-header:active {
-  transform: scale(0.96);
-}
-
-.faq-icon {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.faq-icon svg {
-  width: 13px;
-  height: 13px;
-  color: #c9a0f0;
-}
-
-.faq-question {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 600;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.faq-arrow {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888888;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.faq-arrow svg {
-  width: 14px;
-  height: 14px;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.faq-item.active .faq-arrow svg {
-  transform: rotate(180deg);
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), padding 0.3s ease, opacity 0.4s ease;
-  opacity: 0;
-  padding: 0 12px;
-}
-
-.faq-item.active .faq-answer {
-  max-height: 300px;
-  padding: 0 12px 12px 12px;
-  opacity: 1;
-}
-
-.faq-answer p {
-  font-size: 11px;
-  color: #aaaaaa;
-  line-height: 1.8;
-  direction: rtl;
-  text-align: justify;
-  margin: 0;
-  font-family: 'Rubik', sans-serif;
-}
-
-.faq-support {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 10px 14px;
-  border-radius: 14px;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 3px 14px rgba(108, 60, 176, 0.12);
-  margin-top: 2px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.faq-support:active {
-  transform: scale(0.94);
-}
-
-.faq-support svg {
-  width: 18px;
-  height: 18px;
-  color: #c9a0f0;
-}
-
-.order-form-section {
-  margin-top: 0;
-  animation: fadeInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.order-form-card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 18px;
-  padding: 18px 16px 16px;
-  margin-bottom: 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.order-form-card .form-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 2px;
-  font-family: 'Rubik', sans-serif;
-  text-align: center;
-}
-
-.order-form-card .form-subtitle {
-  font-size: 11px;
-  color: #888888;
-  font-weight: 400;
-  text-align: center;
-  margin-bottom: 16px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-card .balance-display {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-bottom: 14px;
-  border: 1px solid #2a2a2a;
-}
-
-.order-form-card .balance-display .label {
-  font-size: 11px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-card .balance-display .value {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: #ffffff;
-  direction: ltr;
-}
-
-.order-form-card .balance-display .value .ticker {
-  font-size: 12px;
-  background: linear-gradient(135deg, #ffe066, #f5c400);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-right: 4px;
-}
-
-.service-selector {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-.service-btn {
-  position: relative;
-  padding: 16px 10px;
-  border: 2px solid #2a2a2a;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  text-align: center;
-  min-height: 100px;
-  justify-content: center;
-}
-
-.service-btn:active {
-  transform: scale(0.94);
-}
-
-.service-btn .service-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-}
-
-.service-btn .service-icon svg {
-  width: 24px;
-  height: 24px;
-}
-
-.service-btn .service-icon.view-icon {
-  background: linear-gradient(140deg, #4a7fd4, #0a1a3a);
-}
-
-.service-btn .service-icon.view-icon svg {
-  color: #a0c4ff;
-}
-
-.service-btn .service-icon.reaction-icon {
-  background: linear-gradient(140deg, #e74c3c, #6b1a1a);
-}
-
-.service-btn .service-icon.reaction-icon svg {
-  color: #ffb3b3;
-}
-
-.service-btn .service-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: #aaaaaa;
-  transition: color 0.3s ease;
-  font-family: 'Rubik', sans-serif;
-}
-
-.service-btn .service-price {
-  font-size: 9px;
-  color: #888888;
-  font-weight: 400;
-  font-family: 'Rubik', sans-serif;
-}
-
-.service-btn .service-min {
-  font-size: 8px;
-  color: #666666;
-  font-weight: 400;
-  font-family: 'Rubik', sans-serif;
-}
-
-.service-btn .service-check {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: #6c3cb0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 2px 12px rgba(108, 60, 176, 0.3);
-}
-
-.service-btn .service-check svg {
-  width: 12px;
-  height: 12px;
-  color: #ffffff;
-}
-
-.service-btn.active {
-  border-color: #6c3cb0;
-  background: rgba(108, 60, 176, 0.06);
-  box-shadow: 0 0 30px rgba(108, 60, 176, 0.03);
-}
-
-.service-btn.active .service-name {
-  color: #ffffff;
-}
-
-.service-btn.active .service-check {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.order-form-group {
-  margin-bottom: 14px;
-}
-
-.order-form-group label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #aaaaaa;
-  margin-bottom: 5px;
-  direction: rtl;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-group label svg {
-  width: 16px;
-  height: 16px;
-  color: #888888;
-}
-
-.order-form-group .input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1.5px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 0 12px;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.order-form-group .input-wrapper:focus-within {
-  border-color: #6c3cb0;
-  box-shadow: 0 0 0 3px rgba(108, 60, 176, 0.06);
-}
-
-.order-form-group .input-wrapper input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 11px 0;
-  direction: ltr;
-  text-align: left;
-}
-
-.order-form-group .input-wrapper input::placeholder {
-  color: #666666;
-  font-weight: 400;
-  font-size: 11px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-group .input-wrapper .prefix-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666666;
-  margin-left: 10px;
-  flex-shrink: 0;
-}
-
-.order-form-group .input-wrapper .prefix-icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.order-form-group .hint {
-  font-size: 10px;
-  color: #666666;
-  margin-top: 4px;
-  text-align: right;
-  direction: rtl;
-  font-weight: 400;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-group .hint .highlight {
-  color: #ffe066;
-  font-weight: 600;
-}
-
-.order-form-group .hint .price-info {
-  color: #6c3cb0;
-  font-weight: 600;
-}
-
-.order-form-submit {
-  width: 100%;
-  padding: 13px 14px;
-  border: none;
-  border-radius: 14px;
-  background: linear-gradient(140deg, #6c3cb0, #2d0f4a);
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 4px 20px rgba(108, 60, 176, 0.15);
-  margin-top: 2px;
-  letter-spacing: 0.3px;
-}
-
-.order-form-submit:active {
-  transform: scale(0.94);
-}
-
-.order-form-submit:disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.order-form-submit svg {
-  width: 18px;
-  height: 18px;
-  color: #c9a0f0;
-}
-
-.order-form-note {
-  font-size: 10px;
-  color: #666666;
-  text-align: center;
-  direction: rtl;
-  margin-top: 12px;
-  padding: 10px 14px;
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 12px;
-  border: 1px solid #2a2a2a;
-  line-height: 1.7;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-form-note svg {
-  width: 13px;
-  height: 13px;
-  color: #f39c12;
-  vertical-align: middle;
-  margin: 0 3px;
-}
-
-.order-placeholder {
-  width: 100%;
-  max-width: 400px;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 18px 14px 50px;
-  margin: 0 auto;
-  direction: rtl;
-  background: #0a0a0a;
-  color: #ffffff;
-}
-
-.order-placeholder .page-title {
-  text-align: right;
-  font-size: 24px;
-  font-weight: 900;
-  color: #ffffff;
-  margin-bottom: 2px;
-  background: linear-gradient(135deg, #ffffff 60%, rgba(255, 255, 255, 0.4));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-family: 'Rubik', sans-serif;
-}
-
-.order-placeholder .page-subtitle {
-  text-align: right;
-  font-size: 11px;
-  color: #888888;
-  margin-bottom: 14px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.placeholder-page {
-  width: 100%;
-  max-width: 400px;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 24px 14px 110px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  direction: rtl;
-  margin: 0 auto;
-}
-
-.placeholder-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-}
-
-.placeholder-icon svg {
-  width: 30px;
-  height: 30px;
-}
-
-.placeholder-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: #ffffff;
-  font-family: 'Rubik', sans-serif;
-}
-
-.placeholder-sub {
-  font-size: 12px;
-  color: #888888;
-  font-weight: 500;
-  font-family: 'Rubik', sans-serif;
-}
-
-.placeholder-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 14px;
-  border-radius: 14px;
-  font-size: 11px;
-  font-weight: 700;
-  background: rgba(108, 60, 176, 0.06);
-  color: #6c3cb0;
-  border: 1px solid rgba(108, 60, 176, 0.08);
-  margin-top: 2px;
-  font-family: 'Rubik', sans-serif;
-}
-
-.placeholder-badge:active {
-  transform: scale(0.92);
-}
-
-.placeholder-badge svg {
-  width: 12px;
-  height: 12px;
-}
-
-.tab-content {
-  display: none;
-  width: 100%;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 400px;
-  height: 86px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(180deg, rgba(10, 10, 10, 0.96) 0%, rgba(5, 5, 5, 0.98) 100%);
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  border-radius: 22px 22px 0 0;
-  box-shadow: 0 -6px 30px rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  direction: rtl;
-  user-select: none;
-  z-index: 200;
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.bottom-nav::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.02) 10%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.02) 90%, transparent 100%);
-  z-index: 20;
-  pointer-events: none;
-  border-radius: 22px 22px 0 0;
-  animation: navShimmer 3s ease-in-out infinite;
-}
-
-.box-indicator {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 64px;
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 18px 18px 0 0;
-  border: 1px solid rgba(255, 255, 255, 0.02);
-  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.5s ease, border-color 0.5s ease;
-  z-index: 1;
-  pointer-events: none;
-  filter: drop-shadow(0 -4px 16px rgba(108, 60, 176, 0.15)) drop-shadow(0 -2px 8px rgba(108, 60, 176, 0.05));
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 80%);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0) 80%);
-  will-change: left;
-}
-
-.box-indicator::after {
-  content: '';
-  position: absolute;
-  bottom: -14px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 44px;
-  height: 24px;
-  background: radial-gradient(ellipse, rgba(108, 60, 176, 0.15) 0%, transparent 70%);
-  filter: blur(10px);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.box-indicator.glow::after {
-  opacity: 1;
-}
-
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  text-decoration: none;
-  cursor: pointer;
-  width: 56px;
-  padding-bottom: 10px;
-  z-index: 10;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  outline: none;
-  touch-action: manipulation;
-}
-
-.nav-item:active {
-  transform: scale(0.86);
-}
-
-.nav-item svg {
-  width: 22px;
-  height: 22px;
-  fill: none;
-  stroke: #555555;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  margin-bottom: 3px;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 0 0px transparent);
-  pointer-events: none;
-}
-
-.nav-item span {
-  font-size: 10px;
-  font-weight: 700;
-  color: #555555;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  letter-spacing: 0.2px;
-  pointer-events: none;
-  font-family: 'Rubik', sans-serif;
-}
-
-.nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 28px;
-  height: 2.5px;
-  background: #6c3cb0;
-  border-radius: 10px;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 12px rgba(108, 60, 176, 0.1);
-}
-
-.nav-item.active::after {
-  transform: translateX(-50%) scaleX(1);
-}
-
-.nav-item.active svg {
-  stroke: #ffffff;
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.05));
-}
-
-.nav-item.active span {
-  color: #ffffff;
-  text-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
-}
-
-.nav-item {
-  animation: navSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.nav-item:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.nav-item:nth-child(2) {
-  animation-delay: 0.05s;
-}
-
-.nav-item:nth-child(3) {
-  animation-delay: 0.1s;
-}
-
-.nav-item:nth-child(4) {
-  animation-delay: 0.15s;
-}
-
-.skeleton-loader {
-  position: fixed;
-  inset: 0;
-  background: #0a0a0a;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
-  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
-}
-
-.skeleton-loader.sk-hide {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.sk-s {
-  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
-  background-size: 200% 100%;
-  animation: skShimmer 1.5s ease-in-out infinite;
-  flex-shrink: 0;
-}
-
-.sk-screen {
-  width: 100%;
-  max-width: 400px;
-  padding: 14px 14px 0;
-  flex: 1;
-  overflow: hidden;
-}
-
-.sk-hdr {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 14px;
-}
-
-.sk-hdr-icons {
-  display: flex;
-  gap: 12px;
-  padding-top: 2px;
-}
-
-.sk-hdr-title {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
-}
-
-.sk-wallet {
-  background: #141414;
-  border-radius: 20px;
-  padding: 14px 12px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.sk-wallet-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.sk-info-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.sk-info-card {
-  flex: 1;
-  background: #141414;
-  border-radius: 16px;
-  padding: 10px 8px;
-  min-height: 86px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  overflow: hidden;
-}
-
-.sk-invite {
-  background: #141414;
-  border-radius: 18px;
-  padding: 8px 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-
-.sk-quick {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
-
-.sk-quick-item {
-  background: #141414;
-  border-radius: 14px;
-  padding: 8px 2px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  overflow: hidden;
-}
-
-.sk-div {
-  border: none;
-  height: 1px;
-  background: #1a1a1a;
-  margin: 8px 0 6px;
-}
-
-.sk-bottom-nav {
-  width: 100%;
-  max-width: 400px;
-  height: 86px;
-  background: #0a0a0a;
-  border-radius: 22px 22px 0 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  padding-bottom: 12px;
-  flex-shrink: 0;
-}
-
-.sk-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding-bottom: 10px;
-  animation-delay: var(--d, 0s) !important;
-}
-
-.sk-nav-item .sk-s:nth-child(2) {
-  margin-top: 3px;
-  animation-delay: calc(var(--d, 0s) + 0.04s) !important;
-}
-
-.sk-c {
-  border-radius: 50% !important;
-}
-
-.sk-r6 {
-  border-radius: 6px !important;
-}
-
-.sk-r10 {
-  border-radius: 10px !important;
-}
-
-.sk-r13 {
-  border-radius: 13px !important;
-}
-
-.sk-r15 {
-  border-radius: 15px !important;
-}
-
-.sk-r20 {
-  border-radius: 20px !important;
-}
-
-@media (max-width: 360px) {
-  .screen {
-    padding: 10px 10px 110px;
-  }
-  .wallet-card {
-    padding: 12px 10px 10px;
-    border-radius: 16px;
-  }
-  .wallet-balance-amount {
-    font-size: 17px;
-  }
-  .wallet-ticker span.ticker-label {
-    font-size: 15px;
-  }
-  .quick-item {
-    padding: 8px 2px;
-    border-radius: 12px;
-  }
-  .quick-icon {
-    width: 28px;
-    height: 28px;
-  }
-  .quick-icon svg {
-    width: 14px;
-    height: 14px;
-  }
-  .quick-item span {
-    font-size: 8px;
-  }
-  .info-card {
-    padding: 10px 8px;
-    min-height: 82px;
-  }
-  .info-card .badge-icon {
-    width: 30px;
-    height: 30px;
-  }
-  .badge-icon.blue .hash {
-    font-size: 14px;
-  }
-  .nav-item {
-    width: 48px;
-    padding-bottom: 8px;
-  }
-  .nav-item svg {
-    width: 18px;
-    height: 18px;
-  }
-  .nav-item span {
-    font-size: 9px;
-  }
-  .box-indicator {
-    width: 54px;
-    height: 54px;
-    bottom: 4px;
-    border-radius: 14px 14px 0 0;
-  }
-  .bottom-nav {
-    height: 76px;
-    padding-bottom: 10px;
-  }
-  .orders-page {
-    padding: 10px 10px 20px;
-  }
-  .header-title h1 {
-    font-size: 16px;
-  }
-  .order-form-card {
-    padding: 14px 12px;
-  }
-  .service-btn {
-    padding: 12px 8px;
-    min-height: 86px;
-  }
-  .service-btn .service-icon {
-    width: 38px;
-    height: 38px;
-  }
-  .service-btn .service-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-@media (max-width: 340px) {
-  .screen {
-    padding: 8px 8px 100px;
-  }
-  .wallet-name {
-    font-size: 13px;
-  }
-  .wallet-balance-amount {
-    font-size: 15px;
-  }
-  .wallet-ticker span.ticker-label {
-    font-size: 13px;
-  }
-  .quick-menu {
-    gap: 5px;
-  }
-  .quick-item {
-    padding: 6px 2px;
-    border-radius: 10px;
-  }
-  .quick-icon {
-    width: 24px;
-    height: 24px;
-  }
-  .quick-icon svg {
-    width: 12px;
-    height: 12px;
-  }
-  .quick-item span {
-    font-size: 7px;
-  }
-  .nav-item {
-    width: 42px;
-    padding-bottom: 6px;
-  }
-  .nav-item svg {
-    width: 16px;
-    height: 16px;
-  }
-  .nav-item span {
-    font-size: 8px;
-  }
-  .box-indicator {
-    width: 46px;
-    height: 46px;
-    bottom: 3px;
-    border-radius: 12px 12px 0 0;
-  }
-  .bottom-nav {
-    height: 68px;
-    padding-bottom: 8px;
-  }
-  .order-placeholder .page-title {
-    font-size: 20px;
-  }
-  .service-btn .service-icon {
-    width: 34px;
-    height: 34px;
-  }
-  .service-btn .service-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-::-webkit-scrollbar {
-  width: 2px;
-  height: 2px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 10px;
-}
-
-* {
-  scrollbar-width: thin;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>شماره تلفن شما</title>
+
+  <!-- بارگذاری فونت Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --orange-accent: #ff6b00;
+      --white-primary: #ffffff;
+      --white-glow: rgba(255, 255, 255, 0.2);
+      --orange-glow: rgba(255, 107, 0, 0.4);
+      --bg-color: #000000;
+      --card-bg: #121212;
+      --key-bg: #1c1c1e;
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Rubik', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* فیکس کردن ارتفاع صفحه بر اساس DVH برای جلوگیری از اسکرول و پرش در موبایل */
+    html, body {
+      width: 100%;
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      position: fixed;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+    }
+
+    @keyframes slideUpFade {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* کانتینر اصلی موبایل - کاملاً فیکس و بدون اسکرول */
+    .mobile-screen {
+      width: 100vw;
+      height: 100%;
+      height: 100dvh;
+      max-width: 420px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 12px 14px 10px 14px;
+      position: relative;
+      background-color: var(--bg-color);
+      overflow: hidden;
+    }
+
+    .top-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 100%;
+    }
+
+    .icon-container {
+      position: relative;
+      margin-bottom: 8px;
+      margin-top: 2px;
+      animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .phone-outline {
+      width: 34px;
+      height: 52px;
+      border: 2px solid var(--white-primary);
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3px 0;
+      box-shadow: 0 0 12px var(--white-glow);
+    }
+
+    .phone-top-bar {
+      width: 10px;
+      height: 2px;
+      background-color: var(--white-primary);
+      border-radius: 2px;
+    }
+
+    .phone-bottom-bar {
+      width: 12px;
+      height: 2px;
+      background-color: var(--orange-accent);
+      border-radius: 2px;
+    }
+
+    .badge-plus {
+      position: absolute;
+      top: 4px;
+      right: -7px;
+      background-color: var(--orange-accent);
+      color: #ffffff;
+      width: 20px;
+      height: 16px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-size: 11px;
+      border: 1.5px solid #000000;
+      box-shadow: 0 2px 6px var(--orange-glow);
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      opacity: 0;
+      animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.06s forwards;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      line-height: 1.4;
+      padding: 0 10px;
+      margin-bottom: 14px;
+      font-weight: 400;
+      opacity: 0;
+      animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .inputs-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      opacity: 0;
+      animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.14s forwards;
+    }
+
+    /* کادر کشور غیرقابل کلیک */
+    .country-box {
+      position: relative;
+      width: 100%;
+      height: 46px;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 14px;
+      background-color: var(--card-bg);
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .country-box-label {
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background-color: var(--bg-color);
+      padding: 0 5px;
+      color: var(--white-primary);
+      font-size: 10.5px;
+      font-weight: 600;
+      direction: rtl;
+    }
+
+    .country-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flag-rect {
+      width: 22px;
+      height: 15px;
+      border-radius: 2px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .country-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .arrow-icon {
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* کادر ورودی اصلی شماره تلفن */
+    .phone-box {
+      position: relative;
+      width: 100%;
+      height: 48px;
+      border: 2px solid var(--white-primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      background-color: var(--card-bg);
+      direction: ltr;
+      box-shadow: 0 3px 15px var(--white-glow);
+    }
+
+    .phone-label {
+      position: absolute;
+      top: -9px;
+      right: 12px;
+      background-color: var(--bg-color);
+      padding: 0 5px;
+      color: var(--orange-accent);
+      font-size: 10.5px;
+      font-weight: 600;
+      direction: rtl;
+    }
+
+    .country-code-display {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white-primary);
+      padding-right: 6px;
+      border-right: 1.5px solid rgba(255, 255, 255, 0.3);
+      margin-right: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      direction: ltr;
+    }
+
+    .groups-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 5px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .digit-group {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .digit-slot {
+      position: relative;
+      width: 17px;
+      height: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .digit-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(12px) scale(0.6);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.18s ease-out;
+    }
+
+    .digit-slot.filled .digit-text {
+      opacity: 1;
+      transform: translateY(-1px) scale(1);
+    }
+
+    .slot-line {
+      position: absolute;
+      bottom: 4px;
+      width: 80%;
+      height: 2px;
+      background-color: #333333;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: background-color 0.2s ease;
+    }
+
+    .slot-line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--orange-accent);
+      border-radius: 10px;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .digit-slot.filled .slot-line::after {
+      transform: scaleX(1);
+    }
+
+    .digit-slot.current .slot-line {
+      background-color: var(--white-primary);
+      box-shadow: 0 0 5px var(--white-glow);
+    }
+
+    /* کیبورد عددی - فیکس شده برای تناسب کامل در موبایل */
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      width: 100%;
+      padding-bottom: 2px;
+      opacity: 0;
+      animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+    }
+
+    .key-button {
+      background-color: var(--key-bg);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 11px;
+      height: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .key-button:active {
+      background-color: #2c2c2e;
+      border-color: var(--orange-accent);
+      transform: scale(0.95);
+    }
+
+    .key-number {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .key-letters {
+      font-size: 7.5px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-top: 1px;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+    }
+
+    .key-button-next {
+      background-color: #121212;
+      border-color: rgba(255, 255, 255, 0.15);
+      cursor: not-allowed;
+    }
+
+    .action-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555555;
+      transition: all 0.2s ease;
+    }
+
+    .key-button-next.active {
+      background-color: var(--orange-accent);
+      border-color: var(--orange-accent);
+      cursor: pointer;
+      box-shadow: 0 0 12px var(--orange-glow);
+    }
+
+    .key-button-next.active .action-text {
+      color: #ffffff;
+    }
+
+    .key-button-next.active:active {
+      transform: scale(0.95);
+      background-color: #e05e00;
+    }
+
+    .backspace-svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--text-main);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.15s ease;
+    }
+
+    .key-button:active .backspace-svg {
+      stroke: var(--orange-accent);
+    }
+  </style>
 </head>
 <body>
 
-<div class="skeleton-loader" id="skeletonLoader">
-  <div class="sk-screen">
-    <div class="sk-hdr">
-      <div class="sk-hdr-icons">
-        <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
-        <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
+  <div class="mobile-screen">
+    
+    <!-- بخش بالایی -->
+    <div class="top-section">
+      <div class="icon-container">
+        <div class="phone-outline">
+          <div class="phone-top-bar"></div>
+          <div class="phone-bottom-bar"></div>
+        </div>
+        <div class="badge-plus">+</div>
       </div>
-      <div class="sk-hdr-title">
-        <div class="sk-s sk-r10" style="width:86px;height:16px;"></div>
-        <div class="sk-s sk-r6" style="width:56px;height:9px;"></div>
-      </div>
-    </div>
-    <div class="sk-wallet">
-      <div class="sk-wallet-top">
-        <div class="sk-s sk-r13" style="width:36px;height:36px;"></div>
-        <div class="sk-s sk-r10" style="width:96px;height:14px;"></div>
-        <div class="sk-s sk-c" style="width:36px;height:36px;"></div>
-      </div>
-      <div class="sk-s sk-r6" style="width:60px;height:8px;margin-bottom:3px;"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <div class="sk-s sk-r10" style="width:110px;height:20px;"></div>
-        <div class="sk-s sk-r10" style="width:56px;height:18px;"></div>
-      </div>
-      <div class="sk-div"></div>
-      <div class="sk-s sk-r6" style="width:86px;height:9px;"></div>
-    </div>
-    <div class="sk-info-row">
-      <div class="sk-info-card">
-        <div class="sk-s sk-r10" style="width:24px;height:24px;"></div>
-        <div class="sk-s sk-r10" style="width:32px;height:32px;align-self:flex-end;margin-top:3px;"></div>
-        <div class="sk-s sk-r6" style="width:44px;height:8px;margin-top:auto;"></div>
-        <div class="sk-s sk-r6" style="width:56px;height:10px;margin-top:2px;"></div>
-      </div>
-      <div class="sk-info-card">
-        <div class="sk-s sk-r10" style="width:24px;height:24px;"></div>
-        <div class="sk-s sk-r10" style="width:32px;height:32px;align-self:flex-end;margin-top:3px;"></div>
-        <div class="sk-s sk-r6" style="width:44px;height:8px;margin-top:auto;"></div>
-        <div class="sk-s sk-r6" style="width:56px;height:10px;margin-top:2px;"></div>
-      </div>
-    </div>
-    <div class="sk-invite">
-      <div class="sk-s sk-c" style="width:28px;height:28px;"></div>
-      <div style="flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
-        <div class="sk-s sk-r6" style="width:72px;height:10px;"></div>
-        <div class="sk-s sk-r6" style="width:52px;height:8px;"></div>
-      </div>
-      <div class="sk-s sk-r15" style="width:36px;height:36px;"></div>
-    </div>
-    <div class="sk-quick">
-      <div class="sk-quick-item">
-        <div class="sk-s sk-r13" style="width:30px;height:30px;"></div>
-        <div class="sk-s sk-r6" style="width:34px;height:7px;margin-top:4px;"></div>
-      </div>
-      <div class="sk-quick-item">
-        <div class="sk-s sk-r13" style="width:30px;height:30px;"></div>
-        <div class="sk-s sk-r6" style="width:34px;height:7px;margin-top:4px;"></div>
-      </div>
-      <div class="sk-quick-item">
-        <div class="sk-s sk-r13" style="width:30px;height:30px;"></div>
-        <div class="sk-s sk-r6" style="width:34px;height:7px;margin-top:4px;"></div>
-      </div>
-      <div class="sk-quick-item">
-        <div class="sk-s sk-r13" style="width:30px;height:30px;"></div>
-        <div class="sk-s sk-r6" style="width:34px;height:7px;margin-top:4px;"></div>
-      </div>
-    </div>
-  </div>
-  <div class="sk-bottom-nav">
-    <div class="sk-nav-item" style="--d:0s">
-      <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
-      <div class="sk-s sk-r6" style="width:28px;height:7px;"></div>
-    </div>
-    <div class="sk-nav-item" style="--d:.05s">
-      <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
-      <div class="sk-s sk-r6" style="width:28px;height:7px;"></div>
-    </div>
-    <div class="sk-nav-item" style="--d:.1s">
-      <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
-      <div class="sk-s sk-r6" style="width:28px;height:7px;"></div>
-    </div>
-    <div class="sk-nav-item" style="--d:.15s">
-      <div class="sk-s sk-c" style="width:22px;height:22px;"></div>
-      <div class="sk-s sk-r6" style="width:28px;height:7px;"></div>
-    </div>
-  </div>
-</div>
 
-<div class="toast-container" id="toastContainer"></div>
+      <h1 class="title">شماره تلفن شما</h1>
+      <p class="subtitle">لطفاً شماره تلفن خود را جهت ورود وارد کنید.</p>
 
-<div class="tab-content active" id="tab-profile">
-  <div class="screen">
-    <div class="header">
-      <div class="header-icons">
-        <div class="icon-btn theme-toggle" id="themeToggle">
-          <svg class="ico ico-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19.9001 2.30719C19.7392 1.8976 19.1616 1.8976 19.0007 2.30719L18.5703 3.40247C18.5212 3.52752 18.4226 3.62651 18.298 3.67583L17.2067 4.1078C16.7986 4.26934 16.7986 4.849 17.2067 5.01054L18.298 5.44252C18.4226 5.49184 18.5212 5.59082 18.5703 5.71587L19.0007 6.81115C19.1616 7.22074 19.7392 7.22074 19.9001 6.81116L20.3305 5.71587C20.3796 5.59082 20.4782 5.49184 20.6028 5.44252L21.6941 5.01054C22.1022 4.849 22.1022 4.26934 21.6941 4.1078L20.6028 3.67583C20.4782 3.62651 20.3796 3.52752 20.3305 3.40247L19.9001 2.30719Z" stroke="currentColor"/>
-            <path d="M16.0328 8.12967C15.8718 7.72009 15.2943 7.72009 15.1333 8.12967L14.9764 8.52902C14.9273 8.65407 14.8287 8.75305 14.7041 8.80237L14.3062 8.95987C13.8981 9.12141 13.8981 9.70107 14.3062 9.86261L14.7041 10.0201C14.8287 10.0694 14.9273 10.1684 14.9764 10.2935L15.1333 10.6928C15.2943 11.1024 15.8718 11.1024 16.0328 10.6928L16.1897 10.2935C16.2388 10.1684 16.3374 10.0694 16.462 10.0201L16.8599 9.86261C17.268 9.70107 17.268 9.12141 16.8599 8.95987L16.462 8.80237C16.3374 8.75305 16.2388 8.65407 16.1897 8.52902L16.0328 8.12967Z" stroke="currentColor"/>
-            <path d="M21.0672 11.8568L20.4253 11.469L21.0672 11.8568ZM12.1432 2.93276L11.7553 2.29085V2.29085L12.1432 2.93276ZM7.37554 20.013C7.017 19.8056 6.5582 19.9281 6.3508 20.2866C6.14339 20.6452 6.26591 21.104 6.62446 21.3114L7.37554 20.013ZM2.68862 17.3755C2.89602 17.7341 3.35482 17.8566 3.71337 17.6492C4.07191 17.4418 4.19443 16.983 3.98703 16.6245L2.68862 17.3755ZM21.25 12C21.25 17.1086 17.1086 21.25 12 21.25V22.75C17.9371 22.75 22.75 17.9371 22.75 12H21.25ZM2.75 12C2.75 6.89137 6.89137 2.75 12 2.75V1.25C6.06294 1.25 1.25 6.06294 1.25 12H2.75ZM15.5 14.25C12.3244 14.25 9.75 11.6756 9.75 8.5H8.25C8.25 12.5041 11.4959 15.75 15.5 15.75V14.25ZM20.4253 11.469C19.4172 13.1373 17.5882 14.25 15.5 14.25V15.75C18.1349 15.75 20.4407 14.3439 21.7092 12.2447L20.4253 11.469ZM9.75 8.5C9.75 6.41182 10.8627 4.5828 12.531 3.57467L11.7553 2.29085C9.65609 3.5593 8.25 5.86509 8.25 8.5H9.75ZM12 2.75C11.9115 2.75 11.8077 2.71008 11.7324 2.63168C11.6686 2.56527 11.6538 2.50244 11.6503 2.47703C11.6461 2.44587 11.6482 2.35557 11.7553 2.29085L12.531 3.57467C13.0342 3.27065 13.196 2.71398 13.1368 2.27627C13.0754 1.82126 12.7166 1.25 12 1.25V2.75ZM21.7092 12.2447C21.6444 12.3518 21.5541 12.3539 21.523 12.3497C21.4976 12.3462 21.4347 12.3314 21.3683 12.2676C21.2899 12.1923 21.25 12.0885 21.25 12H22.75C22.75 11.2834 22.1787 10.9246 21.7237 10.8632C21.286 10.804 20.7293 10.9658 20.4253 11.469L21.7092 12.2447ZM12 21.25C10.3139 21.25 8.73533 20.7996 7.37554 20.013L6.62446 21.3114C8.2064 22.2265 10.0432 22.75 12 22.75V21.25ZM3.98703 16.6245C3.20043 15.2647 2.75 13.6861 2.75 12H1.25C1.25 13.9568 1.77351 15.7936 2.68862 17.3755L3.98703 16.6245Z" fill="currentColor"/>
-          </svg>
-          <svg class="ico ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4.5" />
-            <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
-          </svg>
-        </div>
-        <div class="icon-btn refresh-btn" id="refreshBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-            <path d="M21 4v4h-4" />
-            <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-            <path d="M3 20v-4h4" />
-          </svg>
-        </div>
-      </div>
-      <div class="header-title">
-        <h1 id="userNameDisplay">بارگذاری...</h1>
-        <p>خوش آمدید</p>
-      </div>
-    </div>
-    <div class="wallet-card anim-in" id="walletCard">
-      <div class="wallet-top">
-        <div class="avatar-slot" id="avatarSlot">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 16.5H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8 13.5H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M14 15C14 14.0572 14 13.5858 14.2929 13.2929C14.5858 13 15.0572 13 16 13C16.9428 13 17.4142 13 17.7071 13.2929C18 13.5858 18 14.0572 18 15C18 15.9428 18 16.4142 17.7071 16.7071C17.4142 17 16.9428 17 16 17C15.0572 17 14.5858 17 14.2929 16.7071C14 16.4142 14 15.9428 14 15Z" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M22 12C22 8.22876 22 6.34315 20.8284 5.17157C19.6569 4 17.7712 4 14 4H10C6.22876 4 4.34315 4 3.17157 5.17157C2 6.34315 2 8.22876 2 12C2 15.7712 2 17.6569 3.17157 18.8284C4.34315 20 6.22876 20 10 20H14C17.7712 20 19.6569 20 20.8284 18.8284C21.4816 18.1752 21.7706 17.3001 21.8985 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M2 10L7 10M22 10L11 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="wallet-name" id="walletName">بارگذاری...</div>
-        <div class="wallet-arrow" id="walletArrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </div>
-      </div>
-      <div class="wallet-balance-label">موجودی کیف پول</div>
-      <div class="wallet-balance-row">
-        <div class="wallet-balance-amount" id="balanceDisplay" dir="ltr">۰</div>
-        <div class="wallet-ticker">
-          <span class="ticker-label">RAKT</span>
-        </div>
-      </div>
-      <hr class="wallet-divider">
-      <div class="wallet-bottom">
-        <div class="wallet-date">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 22H10C6.22876 22 4.34315 22 3.17157 20.8284C2 19.6569 2 17.7712 2 14V12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C22 6.34315 22 8.22876 22 12V14C22 17.7712 22 19.6569 20.8284 20.8284C20.1752 21.4816 19.3001 21.7706 18 21.8985" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M7 4V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M17 4V2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M21.5 9H16.625H10.75M2 9H5.875" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M18 17C18 17.5523 17.5523 18 17 18C16.4477 18 16 17.5523 16 17C16 16.4477 16.4477 16 17 16C17.5523 16 18 16.4477 18 17Z" fill="currentColor"/>
-            <path d="M18 13C18 13.5523 17.5523 14 17 14C16.4477 14 16 13.5523 16 13C16 12.4477 16.4477 12 17 12C17.5523 12 18 12.4477 18 13Z" fill="currentColor"/>
-            <path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z" fill="currentColor"/>
-            <path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z" fill="currentColor"/>
-            <path d="M8 17C8 17.5523 7.55228 18 7 18C6.44772 18 6 17.5523 6 17C6 16.4477 6.44772 16 7 16C7.55228 16 8 16.4477 8 17Z" fill="currentColor"/>
-            <path d="M8 13C8 13.5523 7.55228 14 7 14C6.44772 14 6 13.5523 6 13C6 12.4477 6.44772 12 7 12C7.55228 12 8 12.4477 8 13Z" fill="currentColor"/>
-          </svg>
-          <span id="dateDisplay">در حال بارگذاری...</span>
-        </div>
-      </div>
-    </div>
-    <div class="info-row">
-      <div class="info-card anim-in anim-in-d1">
-        <div class="corner-icon" id="shareBtn">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.9983 10C20.9862 7.82497 20.8897 6.64706 20.1213 5.87868C19.2426 5 17.8284 5 15 5H12C9.17157 5 7.75736 5 6.87868 5.87868C6 6.75736 6 8.17157 6 11V16C6 18.8284 6 20.2426 6.87868 21.1213C7.75736 22 9.17157 22 12 22H15C17.8284 22 19.2426 22 20.1213 21.1213C21 20.2426 21 18.8284 21 16V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3 10V16C3 17.6569 4.34315 19 6 19M18 5C18 3.34315 16.6569 2 15 2H11C7.22876 2 5.34315 2 4.17157 3.17157C3.51839 3.82475 3.22937 4.69989 3.10149 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="badge-icon purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="4" y="3" width="16" height="18" rx="3" />
-            <rect x="9" y="2" width="6" height="3" rx="1" />
-            <circle cx="12" cy="11" r="2.3" />
-            <path d="M8 17c.7-1.7 2.2-2.6 4-2.6s3.3.9 4 2.6" />
-          </svg>
-        </div>
-        <div class="label">اشتراک‌گذاری</div>
-        <div class="value">اطلاعات حساب</div>
-      </div>
-      <div class="info-card anim-in anim-in-d2">
-        <div class="corner-icon" id="copyBtn" title="کپی شناسه عددی">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.9983 10C20.9862 7.82497 20.8897 6.64706 20.1213 5.87868C19.2426 5 17.8284 5 15 5H12C9.17157 5 7.75736 5 6.87868 5.87868C6 6.75736 6 8.17157 6 11V16C6 18.8284 6 20.2426 6.87868 21.1213C7.75736 22 9.17157 22 12 22H15C17.8284 22 19.2426 22 20.1213 21.1213C21 20.2426 21 18.8284 21 16V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3 10V16C3 17.6569 4.34315 19 6 19M18 5C18 3.34315 16.6569 2 15 2H11C7.22876 2 5.34315 2 4.17157 3.17157C3.51839 3.82475 3.22937 4.69989 3.10149 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="badge-icon blue">
-          <span class="hash">#</span>
-        </div>
-        <div class="label">شناسه عددی</div>
-        <div class="value" id="idValue">---</div>
-      </div>
-    </div>
-    <div class="invite-banner anim-in anim-in-d3" id="inviteBanner">
-      <div class="chevron-circle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-      </div>
-      <div class="invite-text">
-        <div class="title">دعوت از دوستان</div>
-        <div class="subtitle">راکت رایگان دریافت کنید</div>
-      </div>
-      <div class="yellow-btn" id="inviteBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="18" cy="5" r="3" />
-          <circle cx="6" cy="12" r="3" />
-          <circle cx="18" cy="19" r="3" />
-          <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" />
-        </svg>
-      </div>
-    </div>
-    <div class="quick-menu">
-      <div class="quick-item anim-in anim-in-d1" id="quickOrders">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 16C19 18.8284 19 20.2426 18.1213 21.1213C17.2426 22 15.8284 22 13 22H11C8.17157 22 6.75736 22 5.87868 21.1213C5 20.2426 5 18.8284 5 16V12M5 8C5 5.17157 5 3.75736 5.87868 2.87868C6.75736 2 8.17157 2 11 2H13C15.8284 2 17.2426 2 18.1213 2.87868C19 3.75736 19 5.17157 19 8V12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M5 4.07617C4.02491 4.17208 3.36857 4.38885 2.87868 4.87873C2 5.75741 2 7.17163 2 10.0001V14.0001C2 16.8285 2 18.2427 2.87868 19.1214C3.36857 19.6113 4.02491 19.828 5 19.9239" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M19 4.07617C19.9751 4.17208 20.6314 4.38885 21.1213 4.87873C22 5.75741 22 7.17163 22 10.0001V14.0001C22 16.8285 22 18.2427 21.1213 19.1214C20.6314 19.6113 19.9751 19.828 19 19.9239" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M9 13H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 9H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 17H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <span>سفارشات</span>
-      </div>
-      <div class="quick-item anim-in anim-in-d2" id="quickSubs">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-            <circle cx="9" cy="7" r="4" />
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-          </svg>
-        </div>
-        <span>زیرمجموعه</span>
-      </div>
-      <div class="quick-item anim-in anim-in-d3" id="quickFaq">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 17V12C21 10.1599 20.4478 8.44877 19.5 7.02331M3 17V12C3 7.02944 7.02944 3 12 3C13.4368 3 14.795 3.33671 16 3.93552" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M22 15.5V17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M2 15.5V17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8 13.8446C8 13.0802 8 12.698 7.82526 12.4323C7.73733 12.2985 7.62061 12.188 7.4844 12.1095C7.21371 11.9535 6.84812 11.9896 6.11694 12.0617C4.88487 12.1831 4.26884 12.2439 3.82737 12.5764C3.60394 12.7448 3.41638 12.9593 3.27646 13.2067C3 13.6955 3 14.3395 3 15.6276V17.1933C3 18.4685 3 19.1061 3.28198 19.5986C3.38752 19.7829 3.51981 19.9491 3.67416 20.0913C4.08652 20.4714 4.68844 20.5901 5.89227 20.8275C6.73944 20.9945 7.16302 21.078 7.47564 20.9021C7.591 20.8372 7.69296 20.7493 7.77572 20.6434C8 20.3565 8 19.9078 8 19.0104V13.8446Z" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M16 13.8446C16 13.0802 16 12.698 16.1747 12.4323C16.2627 12.2985 16.3794 12.188 16.5156 12.1095C16.7863 11.9535 17.1519 11.9896 17.8831 12.0617C19.1151 12.1831 19.7312 12.2439 20.1726 12.5764C20.3961 12.7448 20.5836 12.9593 20.7235 13.2067C21 13.6955 21 14.3395 21 15.6276V17.1933C21 18.4685 21 19.1061 20.718 19.5986C20.6125 19.7829 20.4802 19.9491 20.3258 20.0913C19.9135 20.4714 19.3116 20.5901 18.1077 20.8275C17.2606 20.9945 16.837 21.078 16.5244 20.9021C16.409 20.8372 16.307 20.7493 16.2243 20.6434C16 20.3565 16 19.9078 16 19.0104V13.8446Z" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <span>سوالات</span>
-      </div>
-      <div class="quick-item anim-in anim-in-d4" id="quickSupport">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5.854V20.9999" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M5 9L9 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M5 13L9 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M19 13L15 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M19 5.5V9.51029C19 9.78587 19 9.92366 18.9051 9.97935C18.8103 10.035 18.6806 9.97343 18.4211 9.85018L17.1789 9.26011C17.0911 9.21842 17.0472 9.19757 17 9.19757C16.9528 9.19757 16.9089 9.21842 16.8211 9.26011L15.5789 9.85018C15.3194 9.97343 15.1897 10.035 15.0949 9.97935C15 9.92366 15 9.78587 15 9.51029V6.95002" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M20.082 3.01775L20.1081 3.76729L20.082 3.01775ZM16.5 3.48744L16.2849 2.76895V2.76895L16.5 3.48744ZM13.6738 4.80275L13.2982 4.15363L13.2982 4.15363L13.6738 4.80275ZM3.9824 3.07489L3.93639 3.82348L3.9824 3.07489ZM7 3.48744L7.19136 2.76227V2.76227L7 3.48744ZM10.2823 4.87546L9.93167 5.53847L10.2823 4.87546ZM13.6276 20.0692L13.9804 20.7311L13.6276 20.0692ZM17 18.6334L16.8086 17.9082H16.8086L17 18.6334ZM19.9851 18.2228L20.032 18.9714L19.9851 18.2228ZM10.3724 20.0692L10.0196 20.7311H10.0196L10.3724 20.0692ZM7 18.6334L7.19136 17.9082H7.19136L7 18.6334ZM4.01486 18.2228L3.96804 18.9714H3.96804L4.01486 18.2228ZM22.75 10.5384C22.75 10.1242 22.4142 9.78839 22 9.78839C21.5858 9.78839 21.25 10.1242 21.25 10.5384H22.75ZM21.25 7C21.25 7.41421 21.5858 7.75 22 7.75C22.4142 7.75 22.75 7.41421 22.75 7H21.25ZM1.25 10.5707C1.25 10.9849 1.58579 11.3207 2 11.3207C2.41421 11.3207 2.75 10.9849 2.75 10.5707H1.25ZM2.75 14C2.75 13.5858 2.41421 13.25 2 13.25C1.58579 13.25 1.25 13.5858 1.25 14H2.75ZM20.0559 2.2682C18.9175 2.30785 17.4296 2.42627 16.2849 2.76895L16.7151 4.20594C17.6643 3.92179 18.9892 3.80627 20.1081 3.76729L20.0559 2.2682ZM16.2849 2.76895C15.2899 3.06684 14.1706 3.64868 13.2982 4.15363L14.0495 5.45188C14.9 4.95969 15.8949 4.45149 16.7151 4.20594L16.2849 2.76895ZM3.93639 3.82348C4.90238 3.88285 5.99643 3.99829 6.80864 4.21262L7.19136 2.76227C6.23055 2.50873 5.01517 2.38695 4.02841 2.3263L3.93639 3.82348ZM6.80864 4.21262C7.77076 4.46651 8.95486 5.02196 9.93167 5.53847L10.6328 4.21244C9.63736 3.68606 8.32766 3.06211 7.19136 2.76227L6.80864 4.21262ZM13.9804 20.7311C14.9714 20.2028 16.1988 19.6205 17.1914 19.3585L16.8086 17.9082C15.6383 18.217 14.2827 18.8701 13.2748 19.4074L13.9804 20.7311ZM17.1914 19.3585C17.9943 19.1466 19.0732 19.0313 20.032 18.9714L19.9383 17.4743C18.9582 17.5356 17.7591 17.6574 16.8086 17.9082L17.1914 19.3585ZM10.7252 19.4074C9.71727 18.8701 8.3617 18.217 7.19136 17.9082L6.80864 19.3585C7.8012 19.6205 9.0286 20.2028 10.0196 20.7311L10.7252 19.4074ZM7.19136 17.9082C6.24092 17.6574 5.04176 17.5356 4.06168 17.4743L3.96804 18.9714C4.9268 19.0313 6.00566 19.1466 6.80864 19.3585L7.19136 17.9082ZM21.25 16.1436C21.25 16.8293 20.6817 17.4278 19.9383 17.4743L20.032 18.9714C21.5062 18.8791 22.75 17.6798 22.75 16.1436H21.25ZM22.75 4.93319C22.75 3.46989 21.5847 2.21495 20.0559 2.2682L20.1081 3.76729C20.7229 3.74588 21.25 4.25161 21.25 4.93319H22.75ZM1.25 16.1436C1.25 17.6798 2.49378 18.8791 3.96804 18.9714L4.06168 17.4743C3.31831 17.4278 2.75 16.8293 2.75 16.1436H1.25ZM13.2748 19.4074C12.4825 19.8297 11.5175 19.8297 10.7252 19.4074L10.0196 20.7311C11.2529 21.3885 12.7471 21.3885 13.9804 20.7311L13.2748 19.4074ZM13.2982 4.15363C12.4801 4.62709 11.4617 4.6507 10.6328 4.21244L9.93167 5.53847C11.2239 6.22177 12.791 6.18025 14.0495 5.45188L13.2982 4.15363ZM2.75 4.9978C2.75 4.30062 3.30243 3.78451 3.93639 3.82348L4.02841 2.3263C2.47017 2.23053 1.25 3.49864 1.25 4.9978H2.75ZM22.75 16.1436V10.5384H21.25V16.1436H22.75ZM22.75 7V4.93319H21.25V7H22.75ZM2.75 10.5707V4.9978H1.25V10.5707H2.75ZM2.75 16.1436V14H1.25V16.1436H2.75Z" fill="currentColor"/>
-          </svg>
-        </div>
-        <span>پشتیبانی</span>
-      </div>
-    </div>
-    <div class="footer">
-      <div class="footer-box" id="footerBox">
-        <span class="footer-dev">طراحی و توسعه توسط</span>
-        <span class="footer-brand">< 𝘼𝘽𝙊𝙇𝙁𝘼𝙕𝙇 /></span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="tab-content" id="tab-order">
-  <div class="order-placeholder">
-    <h1 class="page-title">ثبت سفارش</h1>
-    <p class="page-subtitle">اطلاعات سفارش را وارد کنید</p>
-    <div class="order-form-section">
-      <div class="order-form-card">
-        <div class="form-title">ثبت سفارش جدید</div>
-        <div class="form-subtitle">اطلاعات سفارش را با دقت وارد کنید</div>
-        <div class="balance-display">
-          <span class="label">موجودی فعلی</span>
-          <span class="value" id="formBalanceDisplay">۰ <span class="ticker">RAKT</span></span>
-        </div>
-        <div class="service-selector">
-          <button class="service-btn active" data-type="view" id="serviceView">
-            <div class="service-icon view-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </div>
-            <span class="service-name">بازدید</span>
-            <span class="service-price">هر ۱۰۰۰ عدد = ۱۰۰۰ راکت</span>
-            <span class="service-min">حداقل ۱۰۰ عدد</span>
-            <div class="service-check">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 6L9 17l-5-5"/>
-              </svg>
-            </div>
-          </button>
-          <button class="service-btn" data-type="reaction" id="serviceReaction">
-            <div class="service-icon reaction-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                <path d="M9 9h.01M15 9h.01"/>
-              </svg>
-            </div>
-            <span class="service-name">ری‌اکشن</span>
-            <span class="service-price">هر ۱۰۰۰ عدد = ۵۰۰۰۰ راکت</span>
-            <span class="service-min">حداقل ۲۰ عدد</span>
-            <div class="service-check">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 6L9 17l-5-5"/>
-              </svg>
-            </div>
-          </button>
-        </div>
-        <div class="order-form-group">
-          <label>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-            </svg>
-            لینک پست تلگرام
-          </label>
-          <div class="input-wrapper">
-            <div class="prefix-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
-                <path d="M12 12v8"/>
-                <path d="M9 16h6"/>
-              </svg>
-            </div>
-            <input type="text" id="orderLinkInput" placeholder="https://t.me/channel/123" dir="ltr">
+      <div class="inputs-wrapper">
+        <!-- کادر کشور غیرقابل کلیک -->
+        <div class="country-box">
+          <span class="country-box-label">کشور</span>
+          <div class="country-info">
+            <img class="flag-rect" src="https://flagcdn.com/w40/ir.png" alt="Iran Flag">
+            <span class="country-name">ایران</span>
           </div>
-          <div class="hint">لینک پست را به صورت کامل وارد کنید</div>
+          <span class="arrow-icon">▼</span>
         </div>
-        <div class="order-form-group">
-          <label>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="4" width="18" height="18" rx="2"/>
-              <path d="M16 2v4M8 2v4M3 10h18"/>
-            </svg>
-            تعداد مورد نظر
-          </label>
-          <div class="input-wrapper">
-            <div class="prefix-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M12 6v6l4 2"/>
-              </svg>
-            </div>
-            <input type="number" id="orderQuantityInput" placeholder="حداقل ۱۰۰" min="100" step="1">
+
+        <!-- ورودی اصلی شماره تلفن -->
+        <div class="phone-box">
+          <span class="phone-label">شماره تلفن</span>
+
+          <!-- پیش‌شماره ایران -->
+          <div class="country-code-display">
+            <img class="flag-rect" src="https://flagcdn.com/w40/ir.png" alt="Flag">
+            <span>+98</span>
           </div>
-          <div class="hint" id="quantityHint">حداقل <span class="highlight">۱۰۰</span> بازدید | هزینه: <span class="price-info" id="priceDisplay">۱۰۰۰</span> راکت</div>
-        </div>
-        <button class="order-form-submit" id="submitOrderBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-          ثبت نهایی سفارش
-        </button>
-        <div class="order-form-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 16v-4M12 8h.01"/>
-          </svg>
-          سفارشات معمولاً بین ۳۰ دقیقه پس از ثبت شروع می‌شوند. لطفاً از عمومی بودن کانال و صحت لینک وارد شده اطمینان حاصل کنید.
-        </div>
-      </div>
-    </div>
-    <div class="footer-deco" style="margin-top:28px;padding-top:18px;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0.02;">
-      <div style="width:48px;height:1px;background:linear-gradient(90deg,transparent,#ffffff,transparent);"></div>
-      <div style="display:flex;gap:4px;">
-        <span style="width:2.5px;height:2.5px;border-radius:50%;background:#ffffff;animation:dotFloat 3s ease-in-out infinite;"></span>
-        <span style="width:2.5px;height:2.5px;border-radius:50%;background:#ffffff;animation:dotFloat 3s ease-in-out infinite;animation-delay:0.6s;"></span>
-        <span style="width:2.5px;height:2.5px;border-radius:50%;background:#ffffff;animation:dotFloat 3s ease-in-out infinite;animation-delay:1.2s;"></span>
-      </div>
-      <div style="font-size:7px;color:#555555;letter-spacing:3px;font-weight:300;font-family:'Rubik',sans-serif;">✦ SMM ✦</div>
-    </div>
-  </div>
-</div>
 
-<div class="tab-content" id="tab-transfer">
-  <div class="placeholder-page">
-    <div class="placeholder-icon anim-in" style="background:linear-gradient(140deg,#4a7fd4,#0a1a3a);box-shadow:0 3px 16px rgba(74,127,212,0.1);">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#a0c4ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M7 16V4m0 0L3 8m4-4l4 4" />
-        <path d="M17 8v12m0 0l4-4m-4 4l-4-4" />
-      </svg>
-    </div>
-    <div class="placeholder-title anim-in anim-in-d1">انتقال راکت</div>
-    <div class="placeholder-sub anim-in anim-in-d2">بزودی این بخش فعال می‌شود</div>
-    <div class="placeholder-badge anim-in anim-in-d3">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-      </svg>
-      به زودی
-    </div>
-  </div>
-</div>
-
-<div class="tab-content" id="tab-services">
-  <div class="placeholder-page">
-    <div class="placeholder-icon anim-in" style="background:linear-gradient(140deg,#ffe066,#f5c400);box-shadow:0 3px 16px rgba(245,196,0,0.1);">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#1a1400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="2.5" />
-        <rect x="14" y="3" width="7" height="7" rx="2.5" />
-        <rect x="14" y="14" width="7" height="7" rx="2.5" />
-        <rect x="3" y="14" width="7" height="7" rx="2.5" />
-      </svg>
-    </div>
-    <div class="placeholder-title anim-in anim-in-d1">خدمات</div>
-    <div class="placeholder-sub anim-in anim-in-d2">بزودی این بخش فعال می‌شود</div>
-    <div class="placeholder-badge anim-in anim-in-d3">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 6v6l4 2" />
-      </svg>
-      به زودی
-    </div>
-  </div>
-</div>
-
-<div class="sheet-overlay" id="inviteSheetOverlay"></div>
-<div class="sheet" id="inviteSheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-title">اشتراک گذاری لینک دعوت</div>
-  <div class="sheet-subtitle">لینک دعوت خود را با دوستان خود به اشتراک بگذارید</div>
-  <div class="sheet-link-box">
-    <span id="inviteLinkDisplay">در حال بارگذاری...</span>
-    <button class="copy-btn" id="copyLinkBtn">کپی لینک</button>
-  </div>
-  <div class="sheet-btns">
-    <button class="sheet-btn telegram" id="shareTelegramBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-      ارسال به تلگرام
-    </button>
-    <button class="sheet-btn copy-text" id="copyInviteTextBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2.5" />
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-      </svg>
-      کپی متن دعوت
-    </button>
-  </div>
-  <button class="sheet-close" id="inviteSheetClose">بستن</button>
-</div>
-
-<div class="sheet-overlay" id="bottomSheetOverlay"></div>
-<div class="sheet about-sheet" id="bottomSheet">
-  <div class="sheet-handle"></div>
-  <div class="avatar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M5.5 20c1.5-3.5 4-5.5 6.5-5.5s5 2 6.5 5.5" />
-    </svg>
-  </div>
-  <h2 class="name">< 𝘼𝘽𝙊𝙇𝙁𝘼𝙕𝙇 /></h2>
-  <p class="username">@Ai_MiXoN</p>
-  <div class="divider"></div>
-  <p class="desc">طراحی و پیاده‌سازی انواع مینی‌اپ‌های تلگرامی، وب‌سایت و ربات‌های پیشرفته با بالاترین کیفیت و رابط کاربری مدرن.</p>
-  <p class="desc" style="margin-bottom:14px;">برای سفارش پروژه اختصاصی خود یا دریافت مشاوره می‌توانید از طریق دکمه زیر با من در ارتباط باشید.</p>
-  <button class="contact-btn" id="sheetContactBtn">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-    </svg>
-    ارتباط با توسعه‌دهنده
-  </button>
-</div>
-
-<div class="sheet-overlay" id="supportOverlay"></div>
-<div class="sheet support-sheet" id="supportSheet">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-    <div class="support-close" id="supportClose" style="width:32px;height:32px;border-radius:50%;background:#2a2a2a;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.25s ease;color:#888888;border:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 6L6 18M6 6l12 12" />
-      </svg>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;font-size:16px;font-weight:800;color:#ffffff;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;color:#6c3cb0;">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <path d="M8 10h.01M12 10h.01M16 10h.01" />
-      </svg>
-      <span>مرکز پشتیبانی</span>
-    </div>
-    <div style="width:32px;"></div>
-  </div>
-  <p style="font-size:12px;color:#888888;font-weight:500;margin-bottom:12px;text-align:right;direction:rtl;font-family:'Rubik',sans-serif;">به چه نوع کمکی نیاز دارید؟</p>
-  <div class="support-options">
-    <div class="support-item" id="supportTech">
-      <div class="support-icon" style="background:linear-gradient(140deg,#4a7fd4,#0a1a3a);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-          <path d="M12 17h.01" />
-        </svg>
-      </div>
-      <div class="support-info">
-        <span class="support-label">پشتیبانی فنی</span>
-        <span class="support-desc">مشکلات ربات، باگ و پیشنهادات</span>
-      </div>
-      <div class="support-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </div>
-    </div>
-    <div class="support-item" id="supportOrder">
-      <div class="support-icon" style="background:linear-gradient(140deg,#6c3cb0,#2d0f4a);">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" />
-          <path d="M16 2v4M8 2v4M3 10h18" />
-          <path d="M8 14h.01M12 14h.01M16 14h.01" />
-        </svg>
-      </div>
-      <div class="support-info">
-        <span class="support-label">پشتیبانی سفارش</span>
-        <span class="support-desc">پیگیری وضعیت سفارشات و مالی</span>
-      </div>
-      <div class="support-arrow">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="orders-overlay" id="ordersOverlay">
-  <div class="orders-page">
-    <div class="orders-header">
-      <div class="orders-back" id="ordersBack">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-      </div>
-      <div class="orders-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2" />
-          <path d="M16 2v4M8 2v4M3 10h18" />
-        </svg>
-        <span>لیست سفارشات</span>
-      </div>
-      <div style="width:34px;"></div>
-    </div>
-    <div class="orders-subtitle">مدیریت و پیگیری سفارشات ثبت شده</div>
-    <div class="orders-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8" />
-        <path d="M21 21l-4.35-4.35" />
-      </svg>
-      <input type="text" placeholder="جستجو (لینک، تاریخ، شناسه)" id="ordersSearchInput">
-    </div>
-    <div class="orders-filter" id="ordersFilter">
-      <button class="filter-btn active" data-filter="all">همه</button>
-      <button class="filter-btn" data-filter="pending">در انتظار</button>
-      <button class="filter-btn" data-filter="processing">در حال پردازش</button>
-      <button class="filter-btn" data-filter="completed">تکمیل شده</button>
-    </div>
-    <div id="ordersList"></div>
-    <div class="empty-orders" id="emptyOrders" style="display:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" />
-        <path d="M16 2v4M8 2v4M3 10h18" />
-        <path d="M8 14h.01M12 14h.01M16 14h.01" />
-      </svg>
-      <h3>سفارشی یافت نشد</h3>
-      <p>هیچ سفارشی با این شرایط وجود ندارد</p>
-    </div>
-  </div>
-</div>
-
-<div class="faq-overlay" id="faqOverlay">
-  <div class="faq-page">
-    <div class="faq-header">
-      <div class="faq-back" id="faqBack">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-      </div>
-      <div class="faq-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-          <path d="M12 17h.01" />
-        </svg>
-        <span>سوالات متداول</span>
-      </div>
-      <div style="width:34px;"></div>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="0">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><path d="M12 17h.01" /></svg></span>
-          <span class="faq-question">راکت چیست؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>راکت واحد ارز داخلی ربات است. هر راکت معادل یک بازدید (View) و هر ۴۵ راکت معادل یک واکنش (Reaction) محاسبه می‌شود.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="1">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16M20 4v16H4" /><path d="M8 9h8M8 13h6M8 17h4" /></svg></span>
-          <span class="faq-question">نحوه دریافت راکت چگونه است؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>شما می‌توانید از طریق دعوت دوستان، دریافت جوایز روزانه و کدهای هدیه، راکت رایگان کسب کنید.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="2">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></svg></span>
-          <span class="faq-question">حداقل میزان سفارش چقدر است؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>حداقل میزان ثبت سفارش برای بازدید ۱۰۰ عدد و برای رایکشن ۲۰ عدد می‌باشد.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="3">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span>
-          <span class="faq-question">انجام سفارشات چقدر زمان می‌برد؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>فرآیند استارت سفارشات معمولاً بین ۳۰ دقیقه پس از ثبت آغاز می‌شود.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="4">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg></span>
-          <span class="faq-question">چرا پاداش زیرمجموعه‌گیری واریز نشد؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>برای دریافت پاداش، زیرمجموعه شما پس از استارت ربات باید حتماً در کانال اطلاع‌رسانی عضو شده و سپس دکمه «عضو شدم» را در ربات لمس کند.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="5">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg></span>
-          <span class="faq-question">بازدید واریزی بیشتر از سفارش است؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>در حال حاضر به دلیل نوسانات سیستمی، ممکن است تعداد بازدیدها کمی بیشتر از مقدار سفارش داده شده واریز شود.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="6">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg></span>
-          <span class="faq-question">کیفیت بازدیدها چگونه است؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>بازدیدهای ربات سین‌یار کاملاً ایرانی و فارسی بوده و تأثیر مثبتی بر روی سئو و آمارهای کانال شما خواهد داشت.</p></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-item-header" data-index="7">
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 22v-4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M22 12h-4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" /></svg></span>
-          <span class="faq-question">دلیل کندی سرعت واریز؟</span>
-          <div class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6" /></svg></div>
-        </div>
-        <div class="faq-answer"><p>از آنجا که بازدیدها واقعی و غیرفیک هستند، سرعت واریز به ترافیک شبکه بستگی دارد.</p></div>
-      </div>
-    </div>
-    <div class="faq-support" id="faqSupportBtn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-      <span>پشتیبانی در تلگرام</span>
-    </div>
-  </div>
-</div>
-
-<div class="subs-overlay" id="subsOverlay">
-  <div class="subs-page">
-    <div class="subs-header">
-      <div class="subs-back" id="subsBack">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-      </div>
-      <div class="subs-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-          <circle cx="9" cy="7" r="4" />
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-        </svg>
-        <span>زیرمجموعه‌ها</span>
-      </div>
-      <div style="width:34px;"></div>
-    </div>
-    <div class="subs-stats">
-      <div class="subs-stat-card anim-in">
-        <div class="stat-number" id="subsTotal">۰</div>
-        <div class="stat-label">کل زیرمجموعه</div>
-      </div>
-      <div class="subs-stat-card anim-in anim-in-d1">
-        <div class="stat-number" id="subsActive">۰</div>
-        <div class="stat-label">فعال</div>
-      </div>
-      <div class="subs-stat-card anim-in anim-in-d2">
-        <div class="stat-number" id="subsPending">۰</div>
-        <div class="stat-label">در انتظار</div>
-      </div>
-    </div>
-    <div class="subs-list" id="subsList"></div>
-    <div class="subs-empty" id="subsEmpty" style="display:none;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
-      <h3>زیرمجموعه‌ای وجود ندارد</h3>
-      <p>هنوز هیچ کاربری با دعوت شما عضو نشده است</p>
-    </div>
-  </div>
-</div>
-
-<div class="bottom-nav">
-  <div class="box-indicator" id="boxIndicator"></div>
-  <div class="nav-item" id="defaultProfile" data-tab="tab-profile" onclick="moveBox(this)">
-    <svg viewBox="0 0 24 24">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-      <circle cx="12" cy="7" r="4.5"></circle>
-    </svg>
-    <span>پروفایل</span>
-  </div>
-  <div class="nav-item" data-tab="tab-order" onclick="moveBox(this)">
-    <svg viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="9"></circle>
-      <path d="M12 8v8"></path>
-      <path d="M8 12h8"></path>
-    </svg>
-    <span>سفارش</span>
-  </div>
-  <div class="nav-item" data-tab="tab-transfer" onclick="moveBox(this)">
-    <svg viewBox="0 0 24 24">
-      <path d="M7 16V4m0 0L3 8m4-4l4 4"></path>
-      <path d="M17 8v12m0 0l4-4m-4 4l-4-4"></path>
-    </svg>
-    <span>انتقال</span>
-  </div>
-  <div class="nav-item" data-tab="tab-services" onclick="moveBox(this)">
-    <svg viewBox="0 0 24 24">
-      <rect x="3" y="3" width="7" height="7" rx="2.5"></rect>
-      <rect x="14" y="3" width="7" height="7" rx="2.5"></rect>
-      <rect x="14" y="14" width="7" height="7" rx="2.5"></rect>
-      <rect x="3" y="14" width="7" height="7" rx="2.5"></rect>
-    </svg>
-    <span>خدمات</span>
-  </div>
-</div>
-
-<script>
-// ============================================================
-// API CONFIG
-// ============================================================
-const API_BASE = 'https://seenyari.pythonanywhere.com/api';
-
-// ============================================================
-// TOAST SYSTEM
-// ============================================================
-const toastContainer = document.getElementById('toastContainer');
-
-function showToast(message, type = 'success') {
-  const icons = {
-    success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>',
-    error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>',
-    warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>',
-    info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>'
-  };
-  const titles = { success: 'موفق', error: 'خطا', warning: 'توجه', info: 'اطلاعات' };
-
-  const toast = document.createElement('div');
-  toast.className = 'toast-item ' + type;
-  toast.innerHTML = `
-    <div class="toast-icon ${type}">${icons[type]}</div>
-    <div class="toast-content">
-      <div class="toast-title">${titles[type]}</div>
-      <div class="toast-message">${message}</div>
-    </div>
-    <div class="toast-progress"></div>
-  `;
-  toastContainer.appendChild(toast);
-
-  setTimeout(() => {
-    toast.classList.add('removing');
-    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 350);
-  }, 2800);
-}
-
-// ============================================================
-// SKELETON
-// ============================================================
-const skeletonLoader = document.getElementById('skeletonLoader');
-
-function showSkeleton() {
-  skeletonLoader.classList.remove('sk-hide');
-}
-
-function hideSkeleton() {
-  setTimeout(() => skeletonLoader.classList.add('sk-hide'), 350);
-}
-
-// ============================================================
-// TELEGRAM USER
-// ============================================================
-function getTelegramUser() {
-  if (window.Telegram && window.Telegram.WebApp) {
-    const user = window.Telegram.WebApp.initDataUnsafe.user;
-    if (user) {
-      return {
-        id: user.id,
-        first_name: user.first_name || 'کاربر',
-        last_name: user.last_name || '',
-        username: user.username || ''
-      };
-    }
-  }
-  return null;
-}
-
-// ============================================================
-// LOAD DATA
-// ============================================================
-let currentBalance = 0;
-let currentUserId = null;
-
-async function loadUserData() {
-  const tgUser = getTelegramUser();
-  let userId = tgUser ? tgUser.id : parseInt(localStorage.getItem('userId')) || 6880898571;
-  let firstName = tgUser ? tgUser.first_name : localStorage.getItem('userName') || 'کاربر';
-  let username = tgUser ? tgUser.username : localStorage.getItem('username') || '';
-
-  showSkeleton();
-
-  try {
-    const url = `${API_BASE}/user/${userId}?first_name=${encodeURIComponent(firstName)}&username=${encodeURIComponent(username)}`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.success) {
-      const user = data.data;
-      currentUserId = user.user_id;
-      currentBalance = user.coins || 0;
-
-      localStorage.setItem('userId', user.user_id);
-      localStorage.setItem('userName', user.first_name || firstName);
-      localStorage.setItem('username', user.username || '');
-
-      document.getElementById('userNameDisplay').textContent = user.first_name || firstName;
-      document.getElementById('walletName').textContent = user.first_name || firstName;
-      document.getElementById('balanceDisplay').textContent = Number(user.coins || 0).toLocaleString();
-      document.getElementById('idValue').textContent = user.user_id;
-      document.getElementById('formBalanceDisplay').innerHTML = Number(user.coins || 0).toLocaleString() + ' <span class="ticker">RAKT</span>';
-
-      const now = new Date();
-      document.getElementById('dateDisplay').textContent = now.toLocaleDateString('fa-IR');
-    }
-
-    await loadOrders(userId);
-    await loadInvites(userId);
-
-  } catch (error) {
-    console.error('❌ خطا:', error);
-    showToast('اتصال به سرور با مشکل مواجه شد', 'error');
-  } finally {
-    setTimeout(hideSkeleton, 400);
-  }
-}
-
-// ============================================================
-// LOAD ORDERS
-// ============================================================
-async function loadOrders(userId, status = 'all') {
-  try {
-    const response = await fetch(`${API_BASE}/user/${userId}/orders?status=${status}`);
-    const data = await response.json();
-
-    if (data.success) {
-      const ordersList = document.getElementById('ordersList');
-      const emptyOrders = document.getElementById('emptyOrders');
-
-      if (!data.data || data.data.length === 0) {
-        ordersList.style.display = 'none';
-        emptyOrders.style.display = 'block';
-        return;
-      }
-
-      ordersList.style.display = 'block';
-      emptyOrders.style.display = 'none';
-      ordersList.innerHTML = '';
-
-      const statusMap = {
-        'pending': { text: 'در انتظار', class: 'pending' },
-        'processing': { text: 'در حال پردازش', class: 'processing' },
-        'completed': { text: 'تکمیل شده', class: 'completed' },
-        'cancelled': { text: 'لغو شده', class: 'cancelled' }
-      };
-
-      const typeMap = {
-        'view': 'بازدید',
-        'reaction': 'ریکشن',
-        'stars_post': 'استارز پست',
-        'stars_account': 'استارز اکانت'
-      };
-
-      data.data.forEach((order, index) => {
-        const statusInfo = statusMap[order.status] || statusMap['pending'];
-        const typeName = typeMap[order.order_type] || order.order_type;
-
-        const card = document.createElement('div');
-        card.className = 'order-card';
-        card.style.animationDelay = (index * 0.04) + 's';
-        card.dataset.status = order.status;
-        card.innerHTML = `
-          <div class="order-card-top">
-            <div class="order-id">#<span>${order.order_code || '---'}</span></div>
-            <div class="order-status ${statusInfo.class}"><span>●</span> ${statusInfo.text}</div>
-          </div>
-          <div class="order-card-middle">
-            <div class="order-product">
-              <div class="order-product-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <path d="M12 8v8M8 12h8"/>
-                </svg>
-              </div>
-              <div class="order-product-info">
-                <span class="order-product-name">${typeName}</span>
-                <span class="order-product-desc">${order.quantity || 0} عدد</span>
-              </div>
+          <div class="groups-wrapper">
+            <!-- گروه اول (۳تایی) -->
+            <div class="digit-group">
+              <div class="digit-slot current"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
             </div>
-            <div class="order-stats">
-              <div class="stat-item">
-                <span class="stat-value">${(order.quantity || 0).toLocaleString()}</span>
-                <span class="stat-label">تعداد</span>
-              </div>
+
+            <!-- گروه دوم (۳تایی) -->
+            <div class="digit-group">
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+            </div>
+
+            <!-- گروه سوم (۴تایی) -->
+            <div class="digit-group">
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
+              <div class="digit-slot"><span class="digit-text"></span><div class="slot-line"></div></div>
             </div>
           </div>
-          <div class="order-card-bottom">
-            <div class="order-date">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-              </svg>
-              ${order.date ? order.date.slice(0, 10).replace(/-/g, '/') : '---'}
-            </div>
-            <div class="order-rakt">${statusInfo.text === 'تکمیل شده' ? 'تکمیل' : 'در انتظار'}</div>
-          </div>
-        `;
-        ordersList.appendChild(card);
+
+        </div>
+      </div>
+    </div>
+
+    <!-- کیبورد عددی -->
+    <div class="keypad">
+      <button class="key-button" onclick="addDigit('1')">
+        <span class="key-number">1</span>
+      </button>
+      <button class="key-button" onclick="addDigit('2')">
+        <span class="key-number">2</span>
+        <span class="key-letters">ABC</span>
+      </button>
+      <button class="key-button" onclick="addDigit('3')">
+        <span class="key-number">3</span>
+        <span class="key-letters">DEF</span>
+      </button>
+
+      <button class="key-button" onclick="addDigit('4')">
+        <span class="key-number">4</span>
+        <span class="key-letters">GHI</span>
+      </button>
+      <button class="key-button" onclick="addDigit('5')">
+        <span class="key-number">5</span>
+        <span class="key-letters">JKL</span>
+      </button>
+      <button class="key-button" onclick="addDigit('6')">
+        <span class="key-number">6</span>
+        <span class="key-letters">MNO</span>
+      </button>
+
+      <button class="key-button" onclick="addDigit('7')">
+        <span class="key-number">7</span>
+        <span class="key-letters">PQRS</span>
+      </button>
+      <button class="key-button" onclick="addDigit('8')">
+        <span class="key-number">8</span>
+        <span class="key-letters">TUV</span>
+      </button>
+      <button class="key-button" onclick="addDigit('9')">
+        <span class="key-number">9</span>
+        <span class="key-letters">WXYZ</span>
+      </button>
+
+      <!-- دکمه بعدی -->
+      <button class="key-button key-button-next" id="btn-next-wrapper" onclick="submitNumber()">
+        <span class="action-text" id="btn-next">بعدی</span>
+      </button>
+      <button class="key-button" onclick="addDigit('0')">
+        <span class="key-number">0</span>
+        <span class="key-letters">+</span>
+      </button>
+      <button class="key-button" onclick="removeDigit()">
+        <svg class="backspace-svg" viewBox="0 0 24 24">
+          <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+          <line x1="18" y1="9" x2="12" y2="15"></line>
+          <line x1="12" y1="9" x2="18" y2="15"></line>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentNumber = "";
+    const slots = document.querySelectorAll(".digit-slot");
+    const nextBtnWrapper = document.getElementById("btn-next-wrapper");
+
+    function renderDisplay() {
+      slots.forEach((slot, index) => {
+        const textSpan = slot.querySelector(".digit-text");
+        
+        if (index < currentNumber.length) {
+          textSpan.innerText = currentNumber[index];
+          slot.classList.add("filled");
+          slot.classList.remove("current");
+        } else {
+          slot.classList.remove("filled");
+          
+          if (index === currentNumber.length) {
+            slot.classList.add("current");
+          } else {
+            slot.classList.remove("current");
+          }
+          
+          setTimeout(() => {
+            if (index >= currentNumber.length) {
+              textSpan.innerText = "";
+            }
+          }, 150);
+        }
       });
-    }
-  } catch (error) {
-    console.error('❌ خطا در بارگذاری سفارشات:', error);
-  }
-}
 
-// ============================================================
-// LOAD INVITES
-// ============================================================
-async function loadInvites(userId) {
-  try {
-    const response = await fetch(`${API_BASE}/user/${userId}/invites`);
-    const data = await response.json();
-
-    if (data.success) {
-      document.getElementById('subsTotal').textContent = data.total || 0;
-      document.getElementById('subsActive').textContent = data.stats?.completed || 0;
-      document.getElementById('subsPending').textContent = data.stats?.pending || 0;
-
-      const list = document.getElementById('subsList');
-      const empty = document.getElementById('subsEmpty');
-
-      if (!data.data || data.data.length === 0) {
-        list.style.display = 'none';
-        empty.style.display = 'block';
-        return;
-      }
-
-      list.style.display = 'block';
-      empty.style.display = 'none';
-      list.innerHTML = '';
-
-      const statusMap = {
-        'pending': { text: 'در انتظار', class: 'pending' },
-        'completed': { text: 'فعال', class: 'active' },
-        'inactive': { text: 'غیرفعال', class: 'inactive' }
-      };
-
-      data.data.forEach((invite, index) => {
-        const statusInfo = statusMap[invite.status] || statusMap['pending'];
-        const name = invite.first_name || invite.username || 'کاربر ناشناس';
-        const date = invite.date ? invite.date.slice(0, 10).replace(/-/g, '/') : '---';
-
-        const item = document.createElement('div');
-        item.className = 'subs-item';
-        item.style.animationDelay = (index * 0.04) + 's';
-        item.innerHTML = `
-          <div class="subs-avatar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-              <circle cx="12" cy="7" r="4"/>
-            </svg>
-          </div>
-          <div class="subs-info">
-            <div class="subs-name">${name}</div>
-            <div class="subs-detail">تاریخ دعوت: <span>${date}</span></div>
-          </div>
-          <span class="subs-badge ${statusInfo.class}">${statusInfo.text}</span>
-        `;
-        list.appendChild(item);
-      });
-    }
-  } catch (error) {
-    console.error('❌ خطا در بارگذاری زیرمجموعه‌ها:', error);
-  }
-}
-
-// ============================================================
-// CREATE ORDER
-// ============================================================
-async function createOrder(userId, orderType, quantity, targetLink) {
-  try {
-    const response = await fetch(`${API_BASE}/order/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: userId,
-        order_type: orderType,
-        quantity: quantity,
-        target_link: targetLink
-      })
-    });
-    const data = await response.json();
-    if (data.success) {
-      showToast('سفارش شما با موفقیت ثبت شد', 'success');
-      loadUserData();
-      return data;
-    } else {
-      showToast(data.error || 'خطا در ثبت سفارش', 'error');
-      return null;
-    }
-  } catch (error) {
-    showToast('خطا در اتصال به سرور', 'error');
-    return null;
-  }
-}
-
-// ============================================================
-// UI HELPERS
-// ============================================================
-function moveBox(element) {
-  const box = document.getElementById('boxIndicator');
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(item => item.classList.remove('active'));
-  element.classList.add('active');
-  const rect = element.getBoundingClientRect();
-  const navRect = document.querySelector('.bottom-nav').getBoundingClientRect();
-  const leftPos = rect.left + rect.width / 2 - navRect.left;
-  const leftPercent = (leftPos / navRect.width) * 100;
-  box.style.left = leftPercent + '%';
-  box.classList.remove('glow');
-  void box.offsetWidth;
-  box.classList.add('glow');
-  const tabId = element.getAttribute('data-tab');
-  if (tabId) {
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    const targetTab = document.getElementById(tabId);
-    if (targetTab) targetTab.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-// ============================================================
-// ORDER FORM LOGIC
-// ============================================================
-let selectedOrderType = 'view';
-const PRICES = { view: 1000, reaction: 50000 };
-
-function updatePriceDisplay() {
-  const qty = parseInt(document.getElementById('orderQuantityInput').value) || 0;
-  const pricePerThousand = PRICES[selectedOrderType];
-  const cost = Math.ceil((qty / 1000) * pricePerThousand);
-  document.getElementById('priceDisplay').textContent = cost.toLocaleString();
-}
-
-function updateQuantityHint() {
-  const hint = document.getElementById('quantityHint');
-  if (selectedOrderType === 'view') {
-    hint.innerHTML = 'حداقل <span class="highlight">۱۰۰</span> بازدید | هزینه: <span class="price-info" id="priceDisplay">۱۰۰۰</span> راکت';
-    document.getElementById('orderQuantityInput').min = 100;
-    document.getElementById('orderQuantityInput').placeholder = 'حداقل ۱۰۰';
-  } else {
-    hint.innerHTML = 'حداقل <span class="highlight">۲۰</span> ری‌اکشن | هزینه: <span class="price-info" id="priceDisplay">۵۰۰۰۰</span> راکت';
-    document.getElementById('orderQuantityInput').min = 20;
-    document.getElementById('orderQuantityInput').placeholder = 'حداقل ۲۰';
-  }
-  updatePriceDisplay();
-}
-
-document.querySelectorAll('.service-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.service-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    selectedOrderType = this.dataset.type;
-    updateQuantityHint();
-  });
-});
-
-document.getElementById('orderQuantityInput').addEventListener('input', updatePriceDisplay);
-
-document.getElementById('submitOrderBtn').addEventListener('click', function() {
-  const userId = parseInt(localStorage.getItem('userId')) || 6880898571;
-  const link = document.getElementById('orderLinkInput').value.trim();
-  const quantity = parseInt(document.getElementById('orderQuantityInput').value);
-
-  if (!link) {
-    showToast('لطفاً لینک پست را وارد کنید', 'warning');
-    return;
-  }
-
-  if (!link.startsWith('https://t.me/') && !link.startsWith('http://t.me/')) {
-    showToast('لینک وارد شده معتبر نیست', 'error');
-    return;
-  }
-
-  const minQty = selectedOrderType === 'view' ? 100 : 20;
-  if (!quantity || quantity < minQty) {
-    showToast(`حداقل تعداد ${selectedOrderType === 'view' ? '۱۰۰' : '۲۰'} است`, 'warning');
-    return;
-  }
-
-  const pricePerThousand = PRICES[selectedOrderType];
-  const cost = Math.ceil((quantity / 1000) * pricePerThousand);
-  if (cost > currentBalance) {
-    showToast('موجودی کیف پول شما کافی نیست', 'error');
-    return;
-  }
-
-  this.disabled = true;
-  this.textContent = 'در حال ثبت...';
-
-  createOrder(userId, selectedOrderType, quantity, link).finally(() => {
-    this.disabled = false;
-    this.innerHTML = `
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M5 12h14M12 5l7 7-7 7"/>
-      </svg>
-      ثبت نهایی سفارش
-    `;
-  });
-});
-
-// ============================================================
-// EVENTS
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-
-  loadUserData();
-
-  document.getElementById('copyBtn').addEventListener('click', async function() {
-    const idText = document.getElementById('idValue').textContent;
-    if (idText && idText !== '---') {
-      try {
-        await navigator.clipboard.writeText(idText);
-        showToast('شناسه عددی کپی شد', 'success');
-        this.classList.add('copied');
-        setTimeout(() => this.classList.remove('copied'), 1000);
-      } catch {
-        showToast('خطا در کپی', 'error');
-      }
-    }
-  });
-
-  document.getElementById('copyLinkBtn').addEventListener('click', async function() {
-    const link = document.getElementById('inviteLinkDisplay').textContent;
-    if (link && link !== 'در حال بارگذاری...') {
-      const ok = await navigator.clipboard.writeText(link);
-      if (ok) {
-        showToast('لینک دعوت کپی شد', 'success');
-        this.textContent = 'کپی شد';
-        setTimeout(() => { this.textContent = 'کپی لینک'; }, 1500);
-      }
-    }
-  });
-
-  document.getElementById('refreshBtn').addEventListener('click', function() {
-    if (this.classList.contains('spin')) return;
-    this.classList.add('spin');
-    loadUserData();
-    this.addEventListener('animationend', () => {
-      this.classList.remove('spin');
-    }, { once: true });
-  });
-
-  document.querySelectorAll('.support-item, .faq-support, #sheetContactBtn, #supportTech, #supportOrder').forEach(el => {
-    el.addEventListener('click', function(e) {
-      e.stopPropagation();
-      window.open('https://t.me/Ai_MiXoN', '_blank');
-    });
-  });
-
-  document.getElementById('quickOrders').addEventListener('click', function() {
-    document.getElementById('ordersOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    loadOrders(parseInt(localStorage.getItem('userId')) || 6880898571);
-  });
-
-  document.getElementById('ordersBack').addEventListener('click', function() {
-    document.getElementById('ordersOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  document.getElementById('quickSubs').addEventListener('click', function() {
-    document.getElementById('subsOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    loadInvites(parseInt(localStorage.getItem('userId')) || 6880898571);
-  });
-
-  document.getElementById('subsBack').addEventListener('click', function() {
-    document.getElementById('subsOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  document.getElementById('quickFaq').addEventListener('click', function() {
-    document.getElementById('faqOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  });
-
-  document.getElementById('faqBack').addEventListener('click', function() {
-    document.getElementById('faqOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
-  document.querySelectorAll('.faq-item-header').forEach(header => {
-    header.addEventListener('click', function() {
-      const item = this.parentElement;
-      const wasActive = item.classList.contains('active');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-      if (!wasActive) item.classList.add('active');
-    });
-  });
-
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      const userId = parseInt(localStorage.getItem('userId')) || 6880898571;
-      loadOrders(userId, this.dataset.filter);
-    });
-  });
-
-  document.getElementById('ordersSearchInput').addEventListener('input', function() {
-    const q = this.value.trim().toLowerCase();
-    const cards = document.querySelectorAll('.order-card');
-    let has = false;
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      if (text.includes(q)) {
-        card.style.display = 'block';
-        has = true;
+      if (currentNumber.length === 10) {
+        nextBtnWrapper.classList.add("active");
       } else {
-        card.style.display = 'none';
-      }
-    });
-    document.getElementById('emptyOrders').style.display = has ? 'none' : 'block';
-  });
-
-  const inviteBanner = document.getElementById('inviteBanner');
-  const inviteBtn = document.getElementById('inviteBtn');
-  const inviteSheet = document.getElementById('inviteSheet');
-  const inviteSheetOverlay = document.getElementById('inviteSheetOverlay');
-  const inviteSheetClose = document.getElementById('inviteSheetClose');
-
-  function openInviteSheet() {
-    inviteSheetOverlay.classList.add('active');
-    inviteSheet.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeInviteSheet() {
-    inviteSheetOverlay.classList.remove('active');
-    inviteSheet.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  inviteBanner.addEventListener('click', function(e) {
-    if (e.target.closest('.yellow-btn')) return;
-    openInviteSheet();
-  });
-
-  inviteBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    openInviteSheet();
-  });
-
-  inviteSheetClose.addEventListener('click', closeInviteSheet);
-  inviteSheetOverlay.addEventListener('click', function(e) {
-    if (e.target === this) closeInviteSheet();
-  });
-
-  document.getElementById('shareTelegramBtn').addEventListener('click', function() {
-    const link = document.getElementById('inviteLinkDisplay').textContent;
-    if (link && link !== 'در حال بارگذاری...') {
-      window.open('https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent('به ربات سین‌یار بپیوندید'), '_blank');
-      closeInviteSheet();
-    }
-  });
-
-  document.getElementById('copyInviteTextBtn').addEventListener('click', async function() {
-    const link = document.getElementById('inviteLinkDisplay').textContent;
-    if (link && link !== 'در حال بارگذاری...') {
-      const text = `به ربات سین‌یار خوش آمدید\n\nبا استفاده از لینک زیر می‌توانید از ربات استفاده کنید:\n${link}\n\nبا دعوت دوستان خود راکت رایگان دریافت کنید`;
-      const ok = await navigator.clipboard.writeText(text);
-      if (ok) {
-        showToast('متن دعوت کپی شد', 'success');
-        this.querySelector('svg').style.color = '#2ecc71';
-        setTimeout(() => { this.querySelector('svg').style.color = ''; }, 1500);
+        nextBtnWrapper.classList.remove("active");
       }
     }
-  });
 
-  const footerBox = document.getElementById('footerBox');
-  const bottomSheet = document.getElementById('bottomSheet');
-  const bottomSheetOverlay = document.getElementById('bottomSheetOverlay');
-  const sheetContactBtn = document.getElementById('sheetContactBtn');
+    function addDigit(digit) {
+      if (currentNumber.length < 10) {
+        currentNumber += digit;
+        renderDisplay();
+      }
+    }
 
-  function openAbout() {
-    bottomSheetOverlay.classList.add('active');
-    bottomSheet.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+    function removeDigit() {
+      currentNumber = currentNumber.slice(0, -1);
+      renderDisplay();
+    }
 
-  function closeAbout() {
-    bottomSheetOverlay.classList.remove('active');
-    bottomSheet.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  footerBox.addEventListener('click', openAbout);
-  bottomSheetOverlay.addEventListener('click', function(e) {
-    if (e.target === this) closeAbout();
-  });
-  sheetContactBtn.addEventListener('click', function() {
-    window.open('https://t.me/Ai_MiXoN', '_blank');
-    closeAbout();
-  });
-
-  const quickSupport = document.getElementById('quickSupport');
-  const supportOverlay = document.getElementById('supportOverlay');
-  const supportSheet = document.getElementById('supportSheet');
-  const supportClose = document.getElementById('supportClose');
-
-  function openSupport() {
-    supportOverlay.classList.add('active');
-    supportSheet.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeSupport() {
-    supportOverlay.classList.remove('active');
-    supportSheet.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  quickSupport.addEventListener('click', openSupport);
-  supportClose.addEventListener('click', closeSupport);
-  supportOverlay.addEventListener('click', function(e) {
-    if (e.target === this) closeSupport();
-  });
-
-  document.getElementById('themeToggle').addEventListener('click', function() {
-    const html = document.documentElement;
-    const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', next);
-  });
-
-  setTimeout(() => {
-    moveBox(document.getElementById('defaultProfile'));
-  }, 400);
-
-  updateQuantityHint();
-});
-
-if (window.Telegram && window.Telegram.WebApp) {
-  window.Telegram.WebApp.ready();
-  window.Telegram.WebApp.expand();
-}
-</script>
+    function submitNumber() {
+      if (currentNumber.length === 10) {
+        console.log("شماره وارد شده: +98" + currentNumber);
+      }
+    }
+  </script>
 
 </body>
 </html>
